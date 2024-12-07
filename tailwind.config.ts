@@ -11,6 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        secondary: "#e0e0e1",
+      },
+      screens: {
+        xs: "480px",
+      },
+      fontFamily: {
+        geist: ["--font-geist-mono"],
       },
     },
   },
