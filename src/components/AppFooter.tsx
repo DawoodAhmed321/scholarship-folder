@@ -18,7 +18,7 @@ export default function AppFooter() {
               Scholarship <span className="font-normal">Folder</span>
             </h2>
           </div>
-          <p className="text-sm font-medium text-black/70 my-4">
+          <p className="text-sm font-medium text-black/70 my-4 ">
             We Are A Scholarship Agency That Thinks Differently! and deliver our
             users with best
           </p>
@@ -43,7 +43,7 @@ export default function AppFooter() {
         <div>
           <h2 className="text-xl font-semibold">Social Links</h2>
 
-          <div className="my-4 flex flex-col gap-2">
+          <div className="my-4 flex flex-col gap-4">
             {SOCIAL_LINKS.map((social) => (
               <Link
                 key={social.id}

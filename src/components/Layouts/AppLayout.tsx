@@ -4,10 +4,12 @@ import AppFooter from "../AppFooter";
 
 export default function AppLayout({ children }: ILayout) {
   return (
-    <div>
-      <AppHeader />
-      <div>{children}</div>
-      <AppFooter />
+    <div className=" bg-secondary">
+      <div className="max-w-screen-2xl mx-auto">
+        <AppHeader />
+        <div>{children}</div>
+        <AppFooter />
+      </div>
     </div>
   );
 }

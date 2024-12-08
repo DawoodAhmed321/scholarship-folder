@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Animations */
+
+.hero-heading {
+  animation: heading 900ms ease-in-out forwards;
+}
+
+@keyframes heading {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
