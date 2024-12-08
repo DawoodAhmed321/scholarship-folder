@@ -85,6 +85,7 @@ export default function AppHeader() {
                       : "text-slate-400 bg-white "
                   }`}
                   href={menu.link}
+                  key={menu.id}
                 >
                   <p>
                     {menu.name} <span className="text-black">›</span>
