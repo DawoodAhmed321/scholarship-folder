@@ -2,6 +2,7 @@ import EmptyLayout from "@/components/Layouts/EmptyLayout";
 import "@/styles/globals.css";
 import { NextComponentType, NextPageContext } from "next";
 import type { AppProps } from "next/app";
+import "swiper/css";
 
 interface IAppComonent extends AppProps {
   Component: NextComponentType<NextPageContext, any, any> & {

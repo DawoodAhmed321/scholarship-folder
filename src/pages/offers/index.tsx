@@ -6,7 +6,7 @@ function Offers() {
     <div className="md:px-32 sm:px-16 xs:px-12 px-6">
       {/* Heding */}
       <div className="my-12 hero-heading">
-        <h1 className="text-7xl font-medium">
+        <h1 className="md:text-7xl xs:text-5xl text-4xl font-medium">
           <span className="underline decoration-blue-400">Offers</span> For You
         </h1>
       </div>

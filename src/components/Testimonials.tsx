@@ -1,9 +1,6 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { Navigation, Autoplay } from "swiper/modules";
 
