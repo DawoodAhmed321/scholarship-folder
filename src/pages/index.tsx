@@ -1,5 +1,5 @@
 import AppLayout from "@/components/Layouts/AppLayout";
-import Testimonials from "@/components/Testimonials";
+import { Testimonials } from "@/components/Testimonials";
 import localFont from "next/font/local";
 
 const geistSans = localFont({

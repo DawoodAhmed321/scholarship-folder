@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { Navigation, Autoplay } from "swiper/modules";
 
-export default () => {
+export const Testimonials = () => {
   return (
     <div className="bg-black px-6 py-12 flex items-center relative">
       <FaChevronCircleLeft className="text-3xl object-contain  text-white swiper-button-prev select-none cursor-pointer absolute left-6 top-1/2 -translate-y-1/2" />
@@ -54,8 +54,8 @@ export default () => {
           <SwiperSlide key={index.toString()}>
             <div className=" flex items-center justify-center flex-col select-none">
               <img
-                className="size-48 rounded-full object-contain"
-                src="/images/logo.svg"
+                className="size-48 rounded-full object-cover"
+                src="/images/p1.jpg"
                 alt={`testimonial-${index}`}
               />
               <h3 className="text-center text-3xl text-white mt-4">Hi there</h3>

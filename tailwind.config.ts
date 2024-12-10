@@ -12,6 +12,7 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         secondary: "#e0e0e1",
+        primary: "#145790",
       },
       screens: {
         xs: "480px",
