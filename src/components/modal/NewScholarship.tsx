@@ -8,28 +8,25 @@ import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { closeModal } from "@/redux/slices/modalSlice";
 
-const offerSchema = Yup.object().shape({
+const scholarshipSchema = Yup.object().shape({
   name: Yup.string().required(),
   description: Yup.string().required(),
-  image: Yup.mixed<File>()
-    .required()
-    .test("fileSize", "File size cannot exced 3mb", (value) => {
-      if (value.size > 3 * 1024 * 1024) {
-        return false;
-      }
-      return true;
-    }),
+  image: Yup.array()
+    .of(Yup.mixed<File>())
+    .min(1)
+    .max(3, "Cannot select more than 3 images")
+    .required(),
   is_active: Yup.boolean().required(),
 });
 
-export default function NewOffer() {
+export default function NewScholarship() {
   const {
     register,
     formState: { errors },
     control,
     handleSubmit,
   } = useForm({
-    resolver: yupResolver(offerSchema),
+    resolver: yupResolver(scholarshipSchema),
   });
 
   const dispatch = useDispatch();
@@ -38,7 +35,7 @@ export default function NewOffer() {
     <div className="bg-white py-3 px-4 rounded-md w-[95vw] max-w-screen-sm ">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold mb-4 text-primary">
-          Add New Offer
+          Add New Scholarship
         </h2>
         <IoMdClose
           className="text-primary text-2xl cursor-pointer"
@@ -47,7 +44,7 @@ export default function NewOffer() {
       </div>
       <form onSubmit={handleSubmit((values) => console.log(values))}>
         <AppInput
-          placeholder="Enter Offer Name"
+          placeholder="Enter Scholarship Name"
           {...register("name")}
           error={errors.name?.message}
         />
@@ -78,9 +75,15 @@ export default function NewOffer() {
                     className="hidden"
                     onChange={(e) => {
                       if (e.target.files) {
-                        field.onChange(e.target.files[0]);
+                        let selectedFiles: File[] = [];
+                        Object.values(e.target.files).forEach((file) => {
+                          file && selectedFiles.push(file);
+                        });
+                        field.onChange(selectedFiles);
+                        console.log(JSON.stringify(selectedFiles));
                       }
                     }}
+                    multiple
                   />
                   <label
                     htmlFor="image"
@@ -88,8 +91,10 @@ export default function NewOffer() {
                   >
                     <span className="text-primary line-clamp-1">
                       {field.value
-                        ? field.value.name.toString().split("\\").pop()
-                        : "Upload Image"}
+                        ? field.value
+                            .map((file) => file && file.name)
+                            .join(", ")
+                        : "Upload Images"}
                     </span>
                   </label>
                 </div>

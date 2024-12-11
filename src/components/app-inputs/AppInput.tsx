@@ -7,7 +7,7 @@ interface AppInput extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const AppInput = React.forwardRef<HTMLInputElement, AppInput>(
-  ({ iseye = false, error, ...props }, ref) => {
+  ({ iseye = false, type, error, ...props }, ref) => {
     const [visible, setVisible] = useState(true);
 
     return (
@@ -17,16 +17,10 @@ export const AppInput = React.forwardRef<HTMLInputElement, AppInput>(
             ref={ref}
             id={props.id}
             {...props}
-            type={
-              props.type == "password"
-                ? visible
-                  ? "password"
-                  : "text"
-                : props.type
-            }
+            type={type == "password" ? (visible ? "password" : "text") : type}
             className="flex-1 flex-grow bg-transparent  outline-none placeholder:   "
           />
-          {props.type === "password" &&
+          {type === "password" &&
             iseye &&
             (visible ? (
               <FaRegEyeSlash

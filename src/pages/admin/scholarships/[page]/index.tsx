@@ -1,6 +1,7 @@
 import DatePicker from "@/components/app-date-picker/AppDatePicker";
 import AppSwitch from "@/components/app-inputs/AppSwitch";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
+import { openModal } from "@/redux/slices/modalSlice";
 import { GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -11,6 +12,7 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import { MdOutlineDelete } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
 export const serverSideProps = (context: GetServerSidePropsContext) => {
   let page = context.query.page as string;
@@ -27,6 +29,7 @@ interface IScholarships {
 }
 
 function Scholarships({ page }: IScholarships) {
+  const dispatch = useDispatch();
   const [dateFilterVisible, setDateFilterVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<null | {
     start: Date | null;
@@ -37,12 +40,14 @@ function Scholarships({ page }: IScholarships) {
     <div className="mb-20">
       <h1 className="text-3xl text-primary   ">Scholarships</h1>
       <div className="flex items-center justify-end gap-4 flex-wrap ">
-        <Link
-          href="/admin/offers/new"
-          className="text-sm flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md"
+        <div
+          onClick={() => {
+            dispatch(openModal({ view: "NEW_SCHOLARSHIP", data: null }));
+          }}
+          className="text-sm flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md cursor-pointer "
         >
           <FaPlus /> New Scholarship
-        </Link>
+        </div>
       </div>
       {/* Table Section */}
       <div className="bg-white rounded-md shadow-sm shadow-black/30 p-4 mt-6 ">

@@ -1,13 +1,19 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
+import {
+  FaChevronCircleLeft,
+  FaChevronCircleRight,
+  FaStar,
+} from "react-icons/fa";
 import { Navigation, Autoplay } from "swiper/modules";
+import { APP_ROUTES, TESTIMONIALS } from "@/configs";
+import Link from "next/link";
 
 export const Testimonials = () => {
   return (
     <div className="bg-black px-6 py-12 flex items-center relative">
-      <FaChevronCircleLeft className="text-3xl object-contain  text-white swiper-button-prev select-none cursor-pointer absolute left-6 top-1/2 -translate-y-1/2" />
+      <FaChevronCircleLeft className="z-20 text-3xl object-contain  text-white swiper-button-prev select-none cursor-pointer absolute xs:left-6 left-1 top-1/2 -translate-y-1/2" />
 
       <Swiper
         modules={[Navigation, Autoplay]}
@@ -48,25 +54,33 @@ export const Testimonials = () => {
         }}
         className="w-[720px]"
       >
-        {Array.from({
-          length: 7,
-        }).map((_, index) => (
+        {TESTIMONIALS.map((testimonial, index) => (
           <SwiperSlide key={index.toString()}>
-            <div className=" flex items-center justify-center flex-col select-none">
+            <Link
+              href={APP_ROUTES.TESTIMONIALS(testimonial.id)}
+              className="h-full flex flex-col select-none bg-secondary rounded-xl overflow-hidden"
+            >
               <img
-                className="size-48 rounded-full object-cover"
-                src="/images/p1.jpg"
+                className="w-full  object-cover min-h-44"
+                src={testimonial.image}
                 alt={`testimonial-${index}`}
               />
-              <h3 className="text-center text-3xl text-white mt-4">Hi there</h3>
-            </div>
+              <div className="p-4 h-44 overflow-hidden">
+                <h3 className="text-2xl font-bold">{testimonial.name}</h3>
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                    <FaStar className="text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-sm mt-1 line-clamp-5">
+                  " {testimonial.review} "
+                </p>
+              </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
-      <FaChevronCircleRight
-        size={30}
-        className="text-3xl text-white swiper-button-next select-none cursor-pointer absolute right-6 top-1/2 -translate-y-1/2"
-      />
+      <FaChevronCircleRight className=" z-20 text-3xl text-white swiper-button-next select-none cursor-pointer absolute xs:right-6 right-1 top-1/2 -translate-y-1/2" />
     </div>
   );
 };
