@@ -92,7 +92,7 @@ export default function ToastComponent({ toast }: IToast) {
       <div
         className={`p-2 backdrop-blur-[10px] min-h-20 rounded-b-xl border-[1px] ${getColor()}`}
       >
-        <p className={`text-sm     ${getColor()}`}>{toast.message}</p>
+        <p className={`text-sm ${getColor()}`}>{toast.message}</p>
       </div>
     </div>
   );

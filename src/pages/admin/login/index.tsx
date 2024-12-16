@@ -55,9 +55,7 @@ export default function Login() {
         password: values.password,
       });
       if (resp.status == 200) {
-        if (values.rememberMe) {
-          localStorage.setItem("token", resp.data.data.token);
-        }
+        localStorage.setItem("user_token", resp.data.data.token);
         showToast("Successfully logged in !", "success");
         router.replace("/admin/dashboard/");
       }
@@ -67,14 +65,11 @@ export default function Login() {
   };
 
   return (
-    <div
-      className=" flex items-center justify-center min-h-screen bg-contain bg-repeat"
-      style={{
-        backgroundImage: "url(/images/login-bg.jpeg)",
-        backgroundSize: "320px 320px",
-      }}
-    >
+    <div className=" flex items-center justify-center min-h-screen blur-background">
       <form
+        style={{
+          zIndex: 2,
+        }}
         onSubmit={handleSubmit(login)}
         className="flex flex-col gap-2 bg-[#F0F2F5] p-8 rounded-md w-96"
       >

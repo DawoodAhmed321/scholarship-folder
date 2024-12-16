@@ -5,65 +5,82 @@ import * as Yup from "yup";
 import { AppInput } from "../app-inputs/AppInput";
 import AppButton from "../app-buttons/AppButton";
 import { IoMdClose } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "@/redux/slices/modalSlice";
 import http, { API_URL } from "@/services/http.services";
-import { showToast } from "@/utils/indext";
-import { addScholarship } from "@/redux/slices/scholarshipSlice";
-import DatePicker from "../app-date-picker/AppDatePicker";
+import { isStringArray, showToast } from "@/utils/indext";
+import { TState } from "@/redux";
+import { TScholarship } from "@/configs/interface";
+import Image from "next/image";
+import { updateScholarship } from "@/redux/slices/scholarshipSlice";
 
 const scholarshipSchema = Yup.object().shape({
   title: Yup.string().required(),
   description: Yup.string().required(),
-  image: Yup.array()
-    .of(Yup.mixed<File>())
+  images: Yup.array()
+    .of(Yup.mixed<File | string>())
     .min(1)
     .max(3, "Cannot select more than 3 images")
     .required(),
-  deadline: Yup.date().required(),
-  link: Yup.string().required(),
   is_active: Yup.boolean().required(),
 });
 
-export default function NewScholarship() {
+export default function EdirScholarship() {
+  const scholarships = useSelector(
+    (state: TState) => state.modal.data
+  ) as TScholarship;
+
   const {
     register,
     formState: { errors },
     control,
     handleSubmit,
+    setValue,
+    watch,
   } = useForm({
+    defaultValues: {
+      title: scholarships.title,
+      description: scholarships.description,
+      images: scholarships.images.map((img) => img.url),
+      is_active: scholarships.is_active,
+    },
     resolver: yupResolver(scholarshipSchema),
   });
+
+  const images = watch("images");
 
   const dispatch = useDispatch();
 
   const editScholarship = async (value: {
     title: string;
     description: string;
-    image: (File | undefined)[];
-    deadline: Date;
-    link: string;
+    images: (string | File | undefined)[];
     is_active: NonNullable<boolean | undefined>;
   }) => {
     try {
       const data = new FormData();
+      data.append("id", scholarships.id.toString());
       data.append("title", value.title);
       data.append("description", value.description);
-      data.append("deadline", value.deadline.toString());
-      data.append("link", value.link);
-      for (let i = 0; i < value.image.length; i++) {
-        data.append("images", value.image[i]!);
+      data.append("deadline", "2023-10-10");
+      data.append("link", "https://www.google.com");
+
+      for (let i = 0; i < value.images.length; i++) {
+        if (typeof value.images[i] === "string") {
+          data.append("images", `["${value.images[i]}"]`);
+        } else {
+          data.append("images", value.images[i]!);
+        }
       }
       data.append("is_active", value.is_active.toString());
-      console.log("data", data);
-      const resp = await http.post(API_URL.SCHOLARSHIPS, data, {
+      const resp = await http.put(API_URL.SCHOLARSHIPS, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       if (resp.status == 200) {
         showToast("Scholarship updated successfully", "success");
-        dispatch(addScholarship(resp.data.data));
+        dispatch(updateScholarship(resp.data.data));
         dispatch(closeModal());
       }
     } catch (error) {
@@ -84,37 +101,10 @@ export default function NewScholarship() {
       </div>
       <form onSubmit={handleSubmit(editScholarship)}>
         <AppInput
-          placeholder="Enter Scholarship Name"
+          placeholder="Enter Scholarship Ttitle"
           {...register("title")}
           error={errors.title?.message}
         />
-        <div className="flex xs:flex-row flex-col gap-4 my-3">
-          <div className="basis-1/2">
-            <Controller
-              name="deadline"
-              control={control}
-              render={({ field }) => (
-                <DatePicker
-                  className="border border-secondary/50 py-2"
-                  value={field.value}
-                  onChange={(value) => field.onChange(value)}
-                />
-              )}
-            />
-            {errors.deadline && (
-              <p className="text-red-500 text-[10px]  ml-1">
-                {errors.deadline.message}
-              </p>
-            )}
-          </div>
-          <div className="basis-1/2">
-            <AppInput
-              placeholder="Enter Scholarship Link"
-              {...register("link")}
-              error={errors.link?.message}
-            />
-          </div>
-        </div>
         <div className="my-4">
           <textarea
             {...register("description")}
@@ -130,8 +120,36 @@ export default function NewScholarship() {
         </div>
         <div className="flex items-center justify-between flex-wrap">
           <div>
+            <div className="flex items-center gap-2">
+              {images &&
+                images.map((file, index) =>
+                  typeof file == "string" ? (
+                    <div
+                      key={index}
+                      className="flex items-center gap-2 my-2 border border-secondary/20 px-2 py-1 rounded-md relative"
+                    >
+                      <Image
+                        src={file}
+                        alt="image"
+                        width={100}
+                        height={100}
+                        className="w-10 h-10 object-cover"
+                      />
+                      <IoMdClose
+                        className="bg-red-500 rounded-full text-white text-xl cursor-pointer absolute top-0 right-0"
+                        onClick={() => {
+                          setValue(
+                            "images",
+                            images.filter((_, i) => i !== index)
+                          );
+                        }}
+                      />
+                    </div>
+                  ) : null
+                )}
+            </div>
             <Controller
-              name="image"
+              name="images"
               control={control}
               render={({ field }) => (
                 <div>
@@ -144,10 +162,9 @@ export default function NewScholarship() {
                       if (e.target.files) {
                         let selectedFiles: File[] = [];
                         Object.values(e.target.files).forEach((file) => {
-                          file && selectedFiles.push(file);
+                          selectedFiles.push(file);
                         });
-                        field.onChange(selectedFiles);
-                        console.log(JSON.stringify(selectedFiles));
+                        field.onChange([...field.value, ...selectedFiles]);
                       }
                     }}
                     multiple
@@ -156,20 +173,23 @@ export default function NewScholarship() {
                     htmlFor="image"
                     className="cursor-pointer flex items-center gap-2 border border-secondary/50 px-2 py-1 rounded-md max-w-60"
                   >
-                    <span className="text-primary line-clamp-1">
-                      {field.value
-                        ? field.value
-                            .map((file) => file && file.name)
-                            .join(", ")
-                        : "Upload Images"}
-                    </span>
+                    {
+                      <span className="text-primary line-clamp-1">
+                        {field.value && !isStringArray(field.value)
+                          ? field.value
+                              .filter((file) => typeof file == "object")
+                              .map((file) => file.name)
+                              .join(", ")
+                          : "Upload Images"}
+                      </span>
+                    }
                   </label>
                 </div>
               )}
             />
-            {errors.image && (
+            {errors.images && (
               <p className="text-red-500 text-[10px]  ml-1">
-                {errors.image.message}
+                {errors.images.message}
               </p>
             )}
           </div>
@@ -183,12 +203,7 @@ export default function NewScholarship() {
             />
           </div>
         </div>
-        <AppButton
-          title="Add Offer"
-          type="primary"
-          className="mt-4 "
-          onClick={() => console.log("clicked", register("image"))}
-        />
+        <AppButton title="Add Offer" type="primary" className="mt-4 " />
       </form>
     </div>
   );

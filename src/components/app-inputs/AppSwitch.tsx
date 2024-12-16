@@ -8,7 +8,11 @@ interface SwitchProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const AppSwitch = React.forwardRef<HTMLInputElement, SwitchProps>(
   ({ label, checked, onChange, ...props }, ref) => {
-    const [isChecked, setIsChecked] = React.useState(checked || false);
+    const [isChecked, setIsChecked] = React.useState(false);
+
+    React.useEffect(() => {
+      setIsChecked(checked || false);
+    }, [checked]);
 
     return (
       <label className="flex items-center cursor-pointer">
@@ -20,7 +24,6 @@ const AppSwitch = React.forwardRef<HTMLInputElement, SwitchProps>(
             {...props}
             checked={isChecked}
             onChange={(e) => {
-              setIsChecked(e.target.checked);
               onChange && onChange(e);
             }}
           />

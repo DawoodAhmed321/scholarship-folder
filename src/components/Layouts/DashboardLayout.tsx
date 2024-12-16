@@ -6,10 +6,15 @@ import { IoCloseOutline } from "react-icons/io5";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { CollapsibleMenu } from "../collapsible-menu/CollapsibleMenu";
+import { useSelector } from "react-redux";
+import { TState } from "@/redux";
+import Loader from "../loader/Loader";
 
 export default function DashboardLayout({ children }: ILayout) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+
+  const loader = useSelector((state: TState) => state.app.dashboardLoader);
 
   return (
     <div className=" flex flex-col h-screen overflow-hidden">
@@ -27,7 +32,12 @@ export default function DashboardLayout({ children }: ILayout) {
             ))}
           </div>
         </div>
-        <div className="flex-grow h-screen overflow-y-scroll sm:p-6 p-4">
+        <div className="flex-grow h-screen overflow-y-scroll sm:p-6 p-4 relative">
+          {loader && (
+            <div className="absolute inset-0 flex justify-center items-center ">
+              <Loader />
+            </div>
+          )}
           {children}
         </div>
       </div>
@@ -75,29 +85,17 @@ export default function DashboardLayout({ children }: ILayout) {
                         onClick={() => setIsOpen(false)}
                         key={`side-bar-${subMenu.id}`}
                         className={` text-md border border-primary rounded-md my-2 p-2 flex justify-between items-center ${
-                          router.pathname.includes(
-                            typeof subMenu.link == "string"
-                              ? subMenu.link
-                              : subMenu.link(1).split("/")[2]
-                          )
+                          router.pathname == subMenu.link
                             ? "text-white bg-primary"
                             : "text-primary bg-transparent"
                         }`}
-                        href={
-                          typeof subMenu.link === "function"
-                            ? subMenu.link(1)
-                            : subMenu.link
-                        }
+                        href={subMenu.link}
                       >
                         <p>
                           {subMenu.title}{" "}
                           <span
                             className={`${
-                              router.pathname.includes(
-                                typeof subMenu.link == "string"
-                                  ? subMenu.link
-                                  : subMenu.link(1).split("/")[2]
-                              )
+                              router.pathname == subMenu.link
                                 ? "text-white"
                                 : "text-black"
                             }`}

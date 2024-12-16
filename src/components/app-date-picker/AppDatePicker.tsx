@@ -1,12 +1,20 @@
 "use client";
+import { classSpreader, mergeClasses } from "@/utils/indext";
 import React, { useState, useRef, useEffect } from "react";
 
 interface IDatePicker {
   placeholder?: string;
   onChange?: (date: string) => void;
+  value?: Date | null;
+  className?: string;
 }
 
-export default function DatePicker({ placeholder, onChange }: IDatePicker) {
+export default function DatePicker({
+  placeholder,
+  value,
+  onChange,
+  className,
+}: IDatePicker) {
   const [date, setDate] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -29,6 +37,14 @@ export default function DatePicker({ placeholder, onChange }: IDatePicker) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (value) {
+      setDate(formatDate(new Date(value)));
+    } else {
+      setDate("");
+    }
+  }, [value]);
 
   const toggleCalendar = () => {
     setShowCalendar(!showCalendar);
@@ -77,7 +93,13 @@ export default function DatePicker({ placeholder, onChange }: IDatePicker) {
       <div
         ref={inputRef}
         onClick={toggleCalendar}
-        className="flex items-center gap-2 rounded-md border border-black px-2 py-1 bg-white cursor-pointer "
+        // className={`flex items-center gap-2 rounded-md border border-black px-2 py-1 bg-white cursor-pointer ${classSpreader(
+        //   className
+        // )}`}
+        className={` ${mergeClasses(
+          "flex items-center gap-2 rounded-md border border-black px-2 py-1 bg-white cursor-pointer",
+          className
+        )} `}
       >
         <h3 className="">{date ? date : placeholder || "Select Date"}</h3>
         <img

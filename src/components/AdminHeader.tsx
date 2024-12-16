@@ -12,7 +12,7 @@ interface IAdminHeader {
 export default function AdminHeader({ onBarClick }: IAdminHeader) {
   return (
     <div>
-      <nav className="flex justify-between items-center min-h-16 bg-secondary  px-4 xs:px-6 md:px-12 sticky top-0 left-0 right-0 z-50 border-b-[1px] border-b-secondary/10">
+      <nav className="flex justify-between items-center min-h-16 bg-secondary  px-4 xs:px-6 md:px-12 sticky top-0 left-0 right-0 z-50 border-b-[1px] border-b-primary/20">
         <div className="flex flex-row-reverse items-center gap-2">
           <Link
             className="text-black text-xl font-playfair font-semibold"

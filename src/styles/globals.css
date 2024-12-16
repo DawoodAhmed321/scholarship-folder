@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Extra Utils */
+
+.blur-background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/login-bg.jpg"); /* Replace with your image path */
+  background-size: 100% 100%;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.blur-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
 /* Smooth Scroll */
 
 html {
@@ -31,5 +57,62 @@ html {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+/* Toast animations */
+
+.animate-toast-enter-x {
+  animation: toastEnterXAnimation 0.5s normal 0s forwards,
+    toastExitXAnimation 1s normal 3s forwards;
+}
+
+.animate-toast-enter-x:hover {
+  animation-play-state: paused;
+}
+
+.paused {
+  animation: none; /* Stops the current animation */
+}
+
+.animation-toast-exit-x {
+  animation: toastExitXAnimation 1s normal 0s forwards;
+}
+
+@keyframes toastExitXAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes toastEnterXAnimation {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  border-left: 4px solid #3498db;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

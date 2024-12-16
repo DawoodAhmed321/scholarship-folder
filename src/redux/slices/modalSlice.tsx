@@ -5,7 +5,8 @@ type IModalSlice = {
     | "NEW_OFFER"
     | "EDIT_OFFER"
     | "NEW_SCHOLARSHIP"
-    | "EDIT_SCHOLARSHIP";
+    | "EDIT_SCHOLARSHIP"
+    | "CONFIRM_MODAL";
   data: any;
 };
 

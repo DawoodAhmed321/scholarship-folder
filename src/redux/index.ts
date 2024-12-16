@@ -1,11 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import toastSlice from "./slices/toastSlice";
 import modalSlice from "./slices/modalSlice";
+import appSlice from "./slices/appSlice";
+import offerSlice from "./slices/offerSlice";
+import scholarshipSlice from "./slices/scholarshipSlice";
 
 export const store = configureStore({
   reducer: {
     toast: toastSlice,
     modal: modalSlice,
+    app: appSlice,
+    offers: offerSlice,
+    scholarships: scholarshipSlice,
   },
 });
 

@@ -1,10 +1,14 @@
 import React, { HTMLAttributes } from "react";
+import Loader from "../loader/Loader";
+import { classSpreader, mergeClasses } from "@/utils/indext";
 
 interface AppButton extends HTMLAttributes<HTMLButtonElement> {
-  type?: "secondary" | "primary" | "tertiary";
+  type?: "secondary" | "primary" | "tertiary" | "danger";
+  loader?: boolean;
 }
 
 export default function AppButton({
+  loader,
   className,
   type,
   title,
@@ -12,6 +16,8 @@ export default function AppButton({
 }: AppButton) {
   const getButtonClass = () => {
     switch (type) {
+      case "danger":
+        return "bg-red-500 text-white py-2 px-4 rounded-md flex-1 hover:bg-red-700";
       case "tertiary":
         return "border bg-gradient-to-br from-secondary to-blue-950  text-white transition-all duration-300 ease-in-out py-3 px-5 hover:bg-secondary hover:text-primary w-full";
       case "secondary":
@@ -24,10 +30,13 @@ export default function AppButton({
 
   return (
     <button
-      className={` ${className} ${getButtonClass()} transition-colors duration-300 ease-in-out`}
+      className={`${mergeClasses(
+        `${getButtonClass()} flex items-center justify-center gap-3 transition-colors duration-300 ease-in-out`,
+        className
+      )} `}
       {...props}
     >
-      {title}
+      {!loader ? title : <Loader className=" !w-4 !h-4 !border-2 " />}
     </button>
   );
 }

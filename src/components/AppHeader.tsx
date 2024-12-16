@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { IoCloseOutline } from "react-icons/io5";
+import Image from "next/image";
 
 export default function AppHeader() {
   const router = useRouter();
@@ -60,17 +61,17 @@ export default function AppHeader() {
           }`}
         >
           <div className="px-3">
-            <div className="mt-2 flex justify-between items-center min-h-16 bg-primary px-4 xs:px-6 md:px-12 shadow-header rounded-md">
-              <Link href="/">
-                <img
-                  className="w-10  object-contain"
-                  src="/images/logo.svg"
+            <div className="mt-2 flex justify-between items-center  bg-primary/20 px-2 xs:px-6 md:px-12 shadow-header rounded-md">
+              <Link href="/" onClick={() => setIsOpen(false)}>
+                <Image
+                  className="w-16 h-14  object-contain "
+                  src={require("../../public/images/logo.svg")}
                   alt="logo"
                 />
               </Link>
 
               <IoCloseOutline
-                className="cursor-pointer text-red-500 text-2xl"
+                className="cursor-pointer text-blue-800 text-2xl"
                 onClick={() => setIsOpen(!isOpen)}
               />
             </div>
@@ -79,16 +80,26 @@ export default function AppHeader() {
             <div className="flex flex-col justify-center gap-3">
               {NAVBAR_MENU.map((menu) => (
                 <Link
+                  onClick={() => setIsOpen(false)}
                   className={`text-md border border-blue-400 rounded-md my-0.5 p-2 ${
                     menu.link == router.pathname
-                      ? "text-black bg-blue-400 "
-                      : "text-slate-400 bg-white "
+                      ? "text-white bg-primary"
+                      : "text-primary bg-transparent"
                   }`}
                   href={menu.link}
                   key={menu.id}
                 >
                   <p>
-                    {menu.name} <span className="text-black">›</span>
+                    {menu.name}{" "}
+                    <span
+                      className={`${
+                        menu.link == router.pathname
+                          ? "text-white"
+                          : "text-black"
+                      }`}
+                    >
+                      ›
+                    </span>
                   </p>
                 </Link>
               ))}

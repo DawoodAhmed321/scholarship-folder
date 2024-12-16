@@ -1,7 +1,7 @@
-import { BsCart2, BsGear } from "react-icons/bs";
 import { HiLogout } from "react-icons/hi";
 import { IoSchoolOutline } from "react-icons/io5";
 import { LuFacebook, LuInstagram, LuLayoutDashboard } from "react-icons/lu";
+import { VscFeedback } from "react-icons/vsc";
 import { RiTwitterXFill } from "react-icons/ri";
 import { TbHomeEdit } from "react-icons/tb";
 import { TfiGift } from "react-icons/tfi";
@@ -27,7 +27,6 @@ export const NAVBAR_MENU = [
     name: "Scholarships",
     link: "/scholarships",
   },
-
   {
     id: 5,
     name: "Contact",
@@ -71,8 +70,9 @@ export const APP_ROUTES = {
   GET_IN_TOUCH_MAILS: "/admin/get-in-touch-mails",
   JOIN_TEAM_MAILS: "/admin/join-team-mails",
 
-  ADMIN_OFFERS: (page: string | number) => `/admin/offers/${page}`,
-  ADMIN_SCHOLARSHIPS: (page: string | number) => `/admin/scholarships/${page}`,
+  ADMIN_TESTIMONIALS: `/admin/testimonials/`,
+  ADMIN_OFFERS: `/admin/offers`,
+  ADMIN_SCHOLARSHIPS: `/admin/scholarships`,
 };
 
 export const DASHBOARD_MODULE = [
@@ -96,6 +96,12 @@ export const DASHBOARD_MODULE = [
         title: "Scholarships",
         link: APP_ROUTES.ADMIN_SCHOLARSHIPS,
         Icon: IoSchoolOutline,
+      },
+      {
+        id: 4,
+        title: "Testimonials",
+        link: APP_ROUTES.ADMIN_TESTIMONIALS,
+        Icon: VscFeedback,
       },
     ],
   },

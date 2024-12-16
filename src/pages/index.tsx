@@ -19,9 +19,9 @@ function Home() {
       className={`${geistSans.variable} ${geistMono.variable} bg-secondary `}
     >
       {/* Hero Section */}
-      <div className="py-12">
+      <div className="py-12 max-w-screen-lg">
         <h2 className="hero-heading md:text-6xl xs:text-4xl text-3xl leading-snug font-mono font-medium lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 py-4">
-          We Are <br /> A Scholarship Agency <br /> That Thinks Differently
+          We Are A Scholarship Agency That Thinks Differently
         </h2>
       </div>
 

@@ -4,6 +4,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewOffer from "./NewOffer";
 import NewScholarship from "./NewScholarship";
+import EditOffer from "./EditOffer";
+import EditScholarship from "./EditScholarship";
+import ConfirmModal from "./ConfirmModal";
 
 export default function ManagedModal() {
   const modal = useSelector((store: TState) => store.modal);
@@ -13,8 +16,14 @@ export default function ManagedModal() {
     switch (modal.view) {
       case "NEW_OFFER":
         return <NewOffer />;
+      case "EDIT_OFFER":
+        return <EditOffer />;
       case "NEW_SCHOLARSHIP":
         return <NewScholarship />;
+      case "EDIT_SCHOLARSHIP":
+        return <EditScholarship />;
+      case "CONFIRM_MODAL":
+        return <ConfirmModal />;
       default:
         return <></>;
     }
