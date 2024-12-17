@@ -50,20 +50,10 @@ export const CollapsibleMenu = ({
             key={subMenu.id}
             className="ml-2 border-l-[0.5px] border-l-primary pl-2 pb-2"
           >
-            <Link
-              href={
-                typeof subMenu.link === "string"
-                  ? subMenu.link
-                  : subMenu.link(1)
-              }
-            >
+            <Link href={subMenu.link}>
               <div
                 className={`flex items-center gap-2 p-2  hover:bg-primary  rounded-md ${
-                  router.pathname.includes(
-                    typeof subMenu.link == "string"
-                      ? subMenu.link
-                      : subMenu.link(1).split("/")[2]
-                  )
+                  router.pathname == subMenu.link
                     ? "bg-primary text-white"
                     : "bg-primary/10 text-yellow-800`"
                 }  hover:text-white transition-colors duration-300 ease-in-out `}
