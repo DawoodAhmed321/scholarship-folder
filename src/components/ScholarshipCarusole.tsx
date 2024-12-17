@@ -3,11 +3,11 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { Navigation, Autoplay } from "swiper/modules";
+import { TScholarship } from "@/configs/interface";
+import Image from "next/image";
 
 interface IScholarshipCarusole {
-  item: {
-    id: number | string;
-  };
+  item: TScholarship;
 }
 
 export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
@@ -31,15 +31,14 @@ export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
         }}
         className=" w-full h-full"
       >
-        {Array.from({
-          length: 7,
-        }).map((_, index) => (
+        {item.images.map((image, index) => (
           <SwiperSlide key={index.toString()}>
-            <div className="select-none size-full">
-              <img
+            <div className="select-none size-full relative">
+              <Image
                 className="size-full  object-contain"
-                src="/images/logo.svg"
+                src={image.url}
                 alt={`testimonial-${index}`}
+                layout="fill"
               />
             </div>
           </SwiperSlide>

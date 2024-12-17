@@ -19,6 +19,11 @@ export type TJoinTeam = {
   };
 };
 
+export type TPagination = {
+  current_page: number;
+  last_page: number;
+};
+
 export type TOffer = {
   id: string | number;
   title: string;

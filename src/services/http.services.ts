@@ -8,6 +8,8 @@ export const API_URL = {
   LOGIN: "login",
   REGISTER: "register",
   PROFILE: "profile",
+  HOME: "home",
+  CONTACT: "contacts",
 
   SCHOLARSHIPS: "scholarships",
   OFFERS: "offers",

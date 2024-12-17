@@ -1,24 +1,37 @@
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import React, { InputHTMLAttributes, useState } from "react";
+import { mergeClasses } from "@/utils/indext";
 
 interface AppInput extends InputHTMLAttributes<HTMLInputElement> {
   iseye?: boolean;
   error?: string;
+  containerClass?: string;
 }
 
 export const AppInput = React.forwardRef<HTMLInputElement, AppInput>(
-  ({ iseye = false, type, error, ...props }, ref) => {
+  (
+    { iseye = false, className, containerClass, type, error, ...props },
+    ref
+  ) => {
     const [visible, setVisible] = useState(true);
 
     return (
       <div className="">
-        <div className=" bg-white p-2 rounded-md border border-secondary/50 flex items-center gap-2 w-full">
+        <div
+          className={`${mergeClasses(
+            " bg-white p-2 rounded-md border border-secondary/50 flex items-center gap-2 w-full",
+            containerClass
+          )}`}
+        >
           <input
             ref={ref}
             id={props.id}
             {...props}
+            className={`${mergeClasses(
+              "flex-1 flex-grow bg-transparent  outline-none placeholder:   ",
+              className
+            )}`}
             type={type == "password" ? (visible ? "password" : "text") : type}
-            className="flex-1 flex-grow bg-transparent  outline-none placeholder:   "
           />
           {type === "password" &&
             iseye &&

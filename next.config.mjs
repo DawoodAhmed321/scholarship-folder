@@ -6,9 +6,9 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  images: {
-    domains: ["localhost"],
-  },
+  // images: {
+  //   domains: ["localhost"],
+  // },
 };
 
 export default nextConfig;

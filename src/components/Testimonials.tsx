@@ -9,8 +9,14 @@ import {
 import { Navigation, Autoplay } from "swiper/modules";
 import { APP_ROUTES, TESTIMONIALS } from "@/configs";
 import Link from "next/link";
+import { ITestimonial } from "@/configs/interface";
+import Image from "next/image";
 
-export const Testimonials = () => {
+interface ITestimonialProps {
+  testimonials: ITestimonial[];
+}
+
+export const Testimonials = ({ testimonials }: ITestimonialProps) => {
   return (
     <div className="bg-black px-6 py-12 flex items-center relative">
       <FaChevronCircleLeft className="z-20 text-3xl object-contain  text-white swiper-button-prev select-none cursor-pointer absolute xs:left-6 left-1 top-1/2 -translate-y-1/2" />
@@ -54,17 +60,20 @@ export const Testimonials = () => {
         }}
         className="w-[720px]"
       >
-        {TESTIMONIALS.map((testimonial, index) => (
+        {testimonials.map((testimonial, index) => (
           <SwiperSlide key={index.toString()}>
             <Link
               href={APP_ROUTES.TESTIMONIALS(testimonial.id)}
               className="h-full flex flex-col select-none bg-secondary rounded-xl overflow-hidden"
             >
-              <img
-                className="w-full  object-cover min-h-44"
-                src={testimonial.image}
-                alt={`testimonial-${index}`}
-              />
+              <div className="relative w-full min-h-44">
+                <Image
+                  layout="fill"
+                  className="  object-cover "
+                  src={testimonial.image.url}
+                  alt={`testimonial-${index}`}
+                />
+              </div>
               <div className="p-4 h-44 overflow-hidden">
                 <h3 className="text-2xl font-bold">{testimonial.name}</h3>
                 <div className="flex items-center gap-1">
@@ -73,7 +82,7 @@ export const Testimonials = () => {
                   ))}
                 </div>
                 <p className="text-sm mt-1 line-clamp-5">
-                  " {testimonial.review} "
+                  " {testimonial.description} "
                 </p>
               </div>
             </Link>

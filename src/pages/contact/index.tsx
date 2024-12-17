@@ -3,10 +3,10 @@ import AppLayout from "@/components/Layouts/AppLayout";
 import { SOCIAL_LINKS } from "@/configs";
 import Link from "next/link";
 import React from "react";
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaLocationPin } from "react-icons/fa6";
 import { ImLocation } from "react-icons/im";
+import { FaPhoneAlt } from "react-icons/fa";
 import { IoIosClock, IoMdMail } from "react-icons/io";
+import ContactForm from "@/components/contact-form/ContactForm";
 
 function ContactUs() {
   return (
@@ -28,45 +28,7 @@ function ContactUs() {
 
       <div className="flex lg:flex-row flex-col my-20 xs:px-12 px-6">
         <div className="basis-1/2 ">
-          <form className="bg-white p-6 rounded-md shadow-md">
-            <h3 className="text-4xl font-bold mb-6">Get In Touch With Us</h3>
-            <div className="flex gap-4 ">
-              <div className=" p-2 rounded-md border border-black/20 basis-1/2">
-                <input
-                  type="text"
-                  placeholder="Enter Your Name"
-                  className="border-none outline-none w-full "
-                />
-              </div>
-              <div className=" p-2 rounded-md border border-black/20 basis-1/2">
-                <input
-                  type="email"
-                  placeholder="Enter Your Email"
-                  className="border-none outline-none w-full "
-                />
-              </div>
-            </div>
-            <div className=" p-2 rounded-md border border-black/20 my-4">
-              <input
-                type="text"
-                placeholder="Enter Your Name"
-                className="border-none outline-none w-full "
-              />
-            </div>
-            <div className=" p-2 rounded-md border border-black/20 my-4">
-              <textarea
-                placeholder="Enter Your Name"
-                className="border-none outline-none w-full"
-                rows={4}
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="text-sm text-white font-semibold bg-black px-6 py-2 w-fit hover:bg-black/80 rounded-md"
-            >
-              Send Message
-            </button>
-          </form>
+          <ContactForm />
         </div>
         <div className="basis-1/2 lg:px-6 px-0 py-6">
           <h3 className="text-4xl font-bold mb-6">Contact Details</h3>
