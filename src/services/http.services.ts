@@ -25,7 +25,9 @@ export const API_URL = {
   DASHBOARD: "dashboard",
 };
 
-export const BASE_URL = process.env.BASE_URL || "http://localhost:9000/api/v1/";
+export const BASE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  "https://sub.scholarshipfolder.com/api/v1/";
 
 const http = axios.create({
   baseURL: BASE_URL,

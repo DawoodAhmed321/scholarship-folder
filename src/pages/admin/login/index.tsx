@@ -3,6 +3,7 @@ import { AppInput } from "@/components/app-inputs/AppInput";
 import http, { API_URL } from "@/services/http.services";
 import { showToast } from "@/utils/indext";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Cookie from "js-cookie";
 import { useRouter } from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -50,13 +51,22 @@ export default function Login() {
   }) => {
     // showToast("Login", "success");
     try {
-      const resp = await http.post(API_URL.LOGIN, {
-        email: values.email,
-        password: values.password,
-      });
+      const resp = await http.post(
+        API_URL.LOGIN,
+        {
+          email: values.email,
+          password: values.password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       if (resp.status == 200) {
         localStorage.setItem("user_token", resp.data.data.token);
         showToast("Successfully logged in !", "success");
+        Cookie.set("user_token", resp.data.data.token, {
+          expires: 30,
+        });
         router.replace("/admin/dashboard/");
       }
     } catch (error) {
