@@ -1,7 +1,7 @@
 import DatePicker from "@/components/app-date-picker/AppDatePicker";
 import AppSwitch from "@/components/app-inputs/AppSwitch";
 import DashboardLayout from "@/components/Layouts/DashboardLayout";
-import { TScholarship } from "@/configs/interface";
+import { TOffer } from "@/configs/interface";
 import { openModal } from "@/redux/slices/modalSlice";
 import http, { API_URL } from "@/services/http.services";
 import React, { useEffect, useState } from "react";
@@ -15,13 +15,11 @@ import { MdOutlineDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { TState } from "@/redux";
+import { setOffer, updateOffer } from "@/redux/slices/offerSlice";
 import { showToast } from "@/utils/indext";
-import {
-  setScholarships,
-  updateScholarship,
-} from "@/redux/slices/scholarshipSlice";
+import { setTestimonials } from "@/redux/slices/testimonialSlice";
 
-function Scholarships() {
+function Testimonials() {
   const [selectedDate, setSelectedDate] = useState<{
     start: Date | null;
     end: Date | null;
@@ -29,11 +27,11 @@ function Scholarships() {
   const [search, setSearch] = useState<string>("");
 
   const dispatch = useDispatch();
-  const scholarships = useSelector(
-    (state: TState) => state.scholarships.scholarships
+  const testimonials = useSelector(
+    (state: TState) => state.testimonials.testimonials
   );
   const pagination = useSelector(
-    (state: TState) => state.scholarships.pagination
+    (state: TState) => state.testimonials.pagination
   );
 
   useEffect(() => {
@@ -85,7 +83,7 @@ function Scholarships() {
     try {
       if (checkValidationSchema && !validationSchema()) return;
 
-      const resp = await http.get(API_URL.SCHOLARSHIPS, {
+      const resp = await http.get(API_URL.TESTIMONIALS, {
         params: {
           page,
           q: search,
@@ -95,26 +93,24 @@ function Scholarships() {
       });
 
       if (resp.status == 200) {
-        dispatch(setScholarships(resp.data));
+        dispatch(setTestimonials(resp.data));
       }
     } catch (error) {
       console.log("error while apply filter", error);
     }
   };
 
-  const toogleSwitch = async (item: TScholarship) => {
+  const toogleSwitch = async (item: TOffer) => {
     try {
-      const resp = await http.put(API_URL.SCHOLARSHIPS, {
+      const resp = await http.put(API_URL.OFFERS, {
         id: item.id,
         title: item.title,
         description: item.description,
-        deadline: item.deadline,
-        link: item.link,
-        images: item.images.map((img) => img.url),
+        image: [item.image.url],
         is_active: !item.is_active,
       });
       if (resp.status == 200) {
-        dispatch(updateScholarship(resp.data.data));
+        dispatch(updateOffer(resp.data.data));
       }
     } catch (error) {
       console.log("error while toggle switch", error);
@@ -123,28 +119,30 @@ function Scholarships() {
 
   return (
     <div className="mb-20">
-      <h1 className="text-3xl text-primary   ">Scholarships</h1>
+      <h1 className="text-3xl text-primary" id="top">
+        Testimonials
+      </h1>
       <div className="flex items-center justify-end gap-4 flex-wrap ">
         <div
           className="text-sm flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md cursor-pointer"
           onClick={() =>
-            dispatch(openModal({ view: "NEW_SCHOLARSHIP", data: null }))
+            dispatch(openModal({ view: "NEW_TESTIMONIAL", data: null }))
           }
         >
-          <FaPlus /> New Scholarship
+          <FaPlus /> New Testimonial
         </div>
       </div>
       {/* Table Section */}
       <div className="bg-white rounded-md shadow-sm shadow-black/30 p-4 mt-6 ">
         {/* Filter Section */}
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <h2 className="text-lg text-primary">All Scholarships</h2>
+          <h2 className="text-lg text-primary">All Testimonials</h2>
           <div className="flex items-center gap-4   text-sm flex-wrap">
             <div className="flex items-center gap-2 border border-black px-2 py-1 rounded-md">
               <input
                 type="search"
                 className="text-black outline-none border-none"
-                placeholder="Search Offers"
+                placeholder="Search Name"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -161,10 +159,9 @@ function Scholarships() {
                 placeholder="Start Date"
                 value={selectedDate.start}
                 onChange={(date) => {
-                  console.log(new Date(new Date(date).setHours(0, 0, 0, 0)));
                   setSelectedDate({
                     ...selectedDate,
-                    start: new Date(new Date(date).setHours(0, 0, 0, 0)),
+                    start: new Date(new Date(date).setUTCHours(0, 0, 0, 0)),
                   });
                 }}
               />
@@ -176,7 +173,7 @@ function Scholarships() {
                 onChange={(date) => {
                   setSelectedDate({
                     ...selectedDate,
-                    end: new Date(new Date(date).setHours(23, 59, 59, 0)),
+                    end: new Date(new Date(date).setUTCHours(23, 59, 59, 0)),
                   });
                 }}
               />
@@ -211,36 +208,35 @@ function Scholarships() {
             <thead className=" bg-primary/10 text-primary text-sm font-semibold rounded-md ">
               <tr className="text-left rounded-md [&>th]:py-2 [&>th]:px-2">
                 <th>ID</th>
-                <th>Title</th>
+                <th>Name</th>
 
                 <th>Description</th>
                 <th>Created Date</th>
                 <th>Actions</th>
-                <th>Status</th>
               </tr>
             </thead>
             <tbody className=" text-left  [&>tr>td]:py-1 [&>tr>td]:px-2 [&>tr]:border-b [&>tr]:border-black/10">
-              {scholarships.map((scholarship) => (
-                <tr key={scholarship.id} className="">
-                  <td>{scholarship.id}</td>
+              {testimonials.map((testimonial) => (
+                <tr key={testimonial.id}>
+                  <td>{testimonial.id}</td>
                   <td>
                     <div className="flex items-center gap-2">
                       <Image
                         width={50}
                         height={50}
-                        src={scholarship.images[0].url}
-                        alt="scholarship"
+                        src={testimonial.image.url}
+                        alt="testimonial"
                         className="size-10 rounded-md object-cover"
                       />
                       <p className="text-sm text-black/50">
-                        {scholarship.title}
+                        {testimonial.name}
                       </p>
                     </div>
                   </td>
                   <td className="max-w-screen-xs line-clamp-3">
-                    {scholarship.description}
+                    {testimonial.description}
                   </td>
-                  <td>{scholarship.created_at}</td>
+                  <td>{testimonial.created_at}</td>
                   <td>
                     <div className="flex items-center gap-2">
                       <FaEdit
@@ -248,8 +244,8 @@ function Scholarships() {
                         onClick={() => {
                           dispatch(
                             openModal({
-                              view: "EDIT_SCHOLARSHIP",
-                              data: scholarship,
+                              view: "EDIT_TESTIMONIAL",
+                              data: testimonial,
                             })
                           );
                         }}
@@ -261,24 +257,16 @@ function Scholarships() {
                             openModal({
                               view: "CONFIRM_MODAL",
                               data: {
-                                data: scholarship,
-                                type: "scholarships",
+                                data: testimonial,
+                                type: "testimonials",
                                 message:
-                                  "Are you sure you want to delete this scholarship?",
+                                  "Are you sure you want to delete this testimonial?",
                               },
                             })
                           )
                         }
                       />
                     </div>
-                  </td>
-                  <td className="">
-                    <AppSwitch
-                      checked={scholarship.is_active}
-                      onChange={(e) => {
-                        toogleSwitch(scholarship);
-                      }}
-                    />
                   </td>
                 </tr>
               ))}
@@ -287,7 +275,7 @@ function Scholarships() {
         </div>
       </div>
       {/* Pagination Section */}
-      {scholarships.length > 0 && (
+      {testimonials.length > 0 && (
         <div className="flex items-center justify-center gap-4 mt-6">
           {pagination.current_page > 1 && (
             <FaChevronCircleLeft
@@ -314,5 +302,5 @@ function Scholarships() {
   );
 }
 
-Scholarships.Layout = DashboardLayout;
-export default Scholarships;
+Testimonials.Layout = DashboardLayout;
+export default Testimonials;

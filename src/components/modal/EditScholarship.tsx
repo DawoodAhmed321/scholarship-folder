@@ -13,6 +13,7 @@ import { TState } from "@/redux";
 import { TScholarship } from "@/configs/interface";
 import Image from "next/image";
 import { updateScholarship } from "@/redux/slices/scholarshipSlice";
+import DatePicker from "../app-date-picker/AppDatePicker";
 
 const scholarshipSchema = Yup.object().shape({
   title: Yup.string().required(),
@@ -20,8 +21,10 @@ const scholarshipSchema = Yup.object().shape({
   images: Yup.array()
     .of(Yup.mixed<File | string>())
     .min(1)
-    .max(3, "Cannot select more than 3 images")
+    .max(4, "Cannot select more than 4 images")
     .required(),
+  deadline: Yup.date().required(),
+  link: Yup.string().required(),
   is_active: Yup.boolean().required(),
 });
 
@@ -42,6 +45,8 @@ export default function EdirScholarship() {
       title: scholarships.title,
       description: scholarships.description,
       images: scholarships.images.map((img) => img.url),
+      deadline: new Date(scholarships.deadline),
+      link: scholarships.link,
       is_active: scholarships.is_active,
     },
     resolver: yupResolver(scholarshipSchema),
@@ -56,28 +61,35 @@ export default function EdirScholarship() {
     description: string;
     images: (string | File | undefined)[];
     is_active: NonNullable<boolean | undefined>;
+    deadline: Date;
+    link: string;
   }) => {
     try {
       const data = new FormData();
       data.append("id", scholarships.id.toString());
       data.append("title", value.title);
       data.append("description", value.description);
-      data.append("deadline", "2023-10-10");
-      data.append("link", "https://www.google.com");
+      data.append("deadline", value.deadline.toISOString());
+      data.append("link", value.link);
 
       for (let i = 0; i < value.images.length; i++) {
-        if (typeof value.images[i] === "string") {
-          data.append("images", `["${value.images[i]}"]`);
-        } else {
+        if (typeof value.images[i] !== "string") {
           data.append("images", value.images[i]!);
         }
       }
+
+      data.append(
+        "images",
+        JSON.stringify(value.images.filter((img) => typeof img === "string"))
+      );
+
       data.append("is_active", value.is_active.toString());
       const resp = await http.put(API_URL.SCHOLARSHIPS, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
       if (resp.status == 200) {
         showToast("Scholarship updated successfully", "success");
         dispatch(updateScholarship(resp.data.data));
@@ -92,7 +104,7 @@ export default function EdirScholarship() {
     <div className="bg-white py-3 px-4 rounded-md w-[95vw] max-w-screen-sm ">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold mb-4 text-primary">
-          Add New Scholarship
+          Edit Scholarship
         </h2>
         <IoMdClose
           className="text-primary text-2xl cursor-pointer"
@@ -105,6 +117,33 @@ export default function EdirScholarship() {
           {...register("title")}
           error={errors.title?.message}
         />
+        <div className="flex xs:flex-row flex-col gap-4 my-3">
+          <div className="basis-1/2">
+            <Controller
+              name="deadline"
+              control={control}
+              render={({ field }) => (
+                <DatePicker
+                  className="border border-secondary/50 py-2"
+                  value={field.value}
+                  onChange={(value) => field.onChange(value)}
+                />
+              )}
+            />
+            {errors.deadline && (
+              <p className="text-red-500 text-[10px]  ml-1">
+                {errors.deadline.message}
+              </p>
+            )}
+          </div>
+          <div className="basis-1/2">
+            <AppInput
+              placeholder="Enter Scholarship Link"
+              {...register("link")}
+              error={errors.link?.message}
+            />
+          </div>
+        </div>
         <div className="my-4">
           <textarea
             {...register("description")}
@@ -171,7 +210,7 @@ export default function EdirScholarship() {
                   />
                   <label
                     htmlFor="image"
-                    className="cursor-pointer flex items-center gap-2 border border-secondary/50 px-2 py-1 rounded-md max-w-60"
+                    className="cursor-pointer flex items-center gap-2 border border-secondary/50 px-2 py-1 rounded-md w-fit"
                   >
                     {
                       <span className="text-primary line-clamp-1">

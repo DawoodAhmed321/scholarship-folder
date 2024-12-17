@@ -7,6 +7,8 @@ import NewScholarship from "./NewScholarship";
 import EditOffer from "./EditOffer";
 import EditScholarship from "./EditScholarship";
 import ConfirmModal from "./ConfirmModal";
+import NewTestimonial from "./NewTestimonial";
+import EditTestimonial from "./EditTestimonial";
 
 export default function ManagedModal() {
   const modal = useSelector((store: TState) => store.modal);
@@ -24,6 +26,10 @@ export default function ManagedModal() {
         return <EditScholarship />;
       case "CONFIRM_MODAL":
         return <ConfirmModal />;
+      case "NEW_TESTIMONIAL":
+        return <NewTestimonial />;
+      case "EDIT_TESTIMONIAL":
+        return <EditTestimonial />;
       default:
         return <></>;
     }

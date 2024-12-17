@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import { TState } from "@/redux";
 import { setOffer, updateOffer } from "@/redux/slices/offerSlice";
-import { showToast, useDebounce } from "@/utils/indext";
+import { showToast } from "@/utils/indext";
 
 function Offers() {
   const [selectedDate, setSelectedDate] = useState<{

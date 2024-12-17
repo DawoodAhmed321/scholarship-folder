@@ -11,6 +11,7 @@ export const API_URL = {
 
   SCHOLARSHIPS: "scholarships",
   OFFERS: "offers",
+  TESTIMONIALS: "testimonials",
   DELETE: (
     id: number | string,
     type: "offers" | "scholarships" | "testimonials"

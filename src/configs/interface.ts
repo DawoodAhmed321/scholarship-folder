@@ -46,3 +46,15 @@ export type TScholarship = {
     url: string;
   }[];
 };
+
+export interface ITestimonial {
+  id: string | number;
+  name: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+  image: {
+    id: string | number;
+    url: string;
+  };
+}
