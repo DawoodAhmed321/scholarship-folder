@@ -89,6 +89,7 @@ function Offers() {
 
       if (resp.status == 200) {
         dispatch(setOffer(resp.data));
+        window.scrollTo(0, 0);
       }
     } catch (error) {
       console.log("error while apply filter", error);
@@ -152,7 +153,7 @@ function Offers() {
                 onChange={(date) => {
                   setSelectedDate({
                     ...selectedDate,
-                    start: new Date(new Date(date).setUTCHours(0, 0, 0, 0)),
+                    start: new Date(new Date(date).setHours(0, 0, 0, 0)),
                   });
                 }}
               />
@@ -164,7 +165,7 @@ function Offers() {
                 onChange={(date) => {
                   setSelectedDate({
                     ...selectedDate,
-                    end: new Date(new Date(date).setUTCHours(23, 59, 59, 0)),
+                    end: new Date(new Date(date).setHours(23, 59, 59, 0)),
                   });
                 }}
               />

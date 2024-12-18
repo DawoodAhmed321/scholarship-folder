@@ -1,12 +1,11 @@
 import AppLayout from "@/components/Layouts/AppLayout";
 import { TOffer, TPagination } from "@/configs/interface";
 import http, { API_URL } from "@/services/http.services";
-import { GetServerSidePropsContext } from "next";
 import React, { useState } from "react";
-import Image from "next/image";
 import Loader from "@/components/loader/Loader";
-import { FcVoicePresentation } from "react-icons/fc";
 import EmptyMessage from "@/components/empty-message/EmptyMessage";
+import { openModal } from "@/redux/slices/modalSlice";
+import { useDispatch } from "react-redux";
 
 export const getServerSideProps = async () => {
   const resp = await http.get(API_URL.OFFERS, {
@@ -33,6 +32,7 @@ interface IOffer {
 function Offers({ data }: IOffer) {
   const [offers, setOffers] = useState(data);
   const [load, setLoad] = React.useState(false);
+  const dispatch = useDispatch();
 
   const loadMore = async () => {
     try {
@@ -74,21 +74,23 @@ function Offers({ data }: IOffer) {
         what we've been up to below.
       </h3>
 
-      {offers.data.length < 0 ? (
+      {offers.data.length > 0 ? (
         <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-6">
           {offers.data.map((offer, index) => (
             <div
               key={index}
+              onClick={() => {
+                dispatch(openModal({ view: "OFFER_DETAIL", data: offer }));
+              }}
               className="relative size-60 rounded-full overflow-hidden cursor-pointer border border-black/20 mx-auto"
             >
               <div className="fade-in px-2 absolute z-20 top-0 left-0 right-0 bottom-0 bg-black/40 opacity-0  hover:opacity-100 transition-all duration-300 ease-in-out flex justify-center items-center ">
                 <p className="text-white text-sm">{offer.description}</p>
               </div>
-              <Image
+              <img
                 src={offer.image.url}
                 alt="mac"
                 className="size-full object-cover"
-                layout="fill"
               />
             </div>
           ))}

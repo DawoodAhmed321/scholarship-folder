@@ -67,8 +67,8 @@ export const APP_ROUTES = {
   HOME_PAGE: "/admin/home-page",
   ADMIN_LOGIN: "/admin/login",
 
-  GET_IN_TOUCH_MAILS: "/admin/get-in-touch-mails",
-  JOIN_TEAM_MAILS: "/admin/join-team-mails",
+  GET_IN_TOUCH_MAILS: "/admin/get-in-touch",
+  JOIN_TEAM_MAILS: "/admin/join-team",
 
   ADMIN_TESTIMONIALS: `/admin/testimonials/`,
   ADMIN_OFFERS: `/admin/offers`,

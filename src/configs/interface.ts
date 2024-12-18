@@ -5,6 +5,7 @@ export type TContact = {
   subject: string;
   message: string;
   type: "INQUIRY";
+  created_at: string;
 };
 
 export type TJoinTeam = {
@@ -17,6 +18,7 @@ export type TJoinTeam = {
   file: {
     url: string;
   };
+  created_at: string;
 };
 
 export type TPagination = {

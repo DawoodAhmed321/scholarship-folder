@@ -7,7 +7,17 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ["localhost", "127.0.0.1", "sub.scholarshipfolder.com"],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "9000",
+      },
+      {
+        protocol: "https",
+        hostname: "sub.scholarshipfolder.com",
+      },
+    ],
   },
 };
 

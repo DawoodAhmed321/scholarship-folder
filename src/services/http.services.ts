@@ -10,6 +10,8 @@ export const API_URL = {
   PROFILE: "profile",
   HOME: "home",
   CONTACT: "contacts",
+  JOIN_TEAM: "join-teams",
+  EXPORT_REPORT: "report",
 
   SCHOLARSHIPS: "scholarships",
   OFFERS: "offers",

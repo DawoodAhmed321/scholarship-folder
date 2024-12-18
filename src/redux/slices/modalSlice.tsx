@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type IModalSlice = {
   view:
     | ""
+    | "OFFER_DETAIL"
     | "NEW_OFFER"
     | "EDIT_OFFER"
     | "NEW_SCHOLARSHIP"
     | "EDIT_SCHOLARSHIP"
     | "NEW_TESTIMONIAL"
     | "EDIT_TESTIMONIAL"
-    | "CONFIRM_MODAL";
+    | "CONFIRM_MODAL"
+    | "EXPORT_MODAL";
   data: any;
 };
 

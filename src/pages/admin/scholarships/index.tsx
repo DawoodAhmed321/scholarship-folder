@@ -96,6 +96,7 @@ function Scholarships() {
 
       if (resp.status == 200) {
         dispatch(setScholarships(resp.data));
+        window.scrollTo(0, 0);
       }
     } catch (error) {
       console.log("error while apply filter", error);

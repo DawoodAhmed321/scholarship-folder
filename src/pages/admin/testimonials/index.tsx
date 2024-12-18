@@ -94,6 +94,10 @@ function Testimonials() {
 
       if (resp.status == 200) {
         dispatch(setTestimonials(resp.data));
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       }
     } catch (error) {
       console.log("error while apply filter", error);
@@ -161,7 +165,7 @@ function Testimonials() {
                 onChange={(date) => {
                   setSelectedDate({
                     ...selectedDate,
-                    start: new Date(new Date(date).setUTCHours(0, 0, 0, 0)),
+                    start: new Date(new Date(date).setHours(0, 0, 0, 0)),
                   });
                 }}
               />
@@ -173,7 +177,7 @@ function Testimonials() {
                 onChange={(date) => {
                   setSelectedDate({
                     ...selectedDate,
-                    end: new Date(new Date(date).setUTCHours(23, 59, 59, 0)),
+                    end: new Date(new Date(date).setHours(23, 59, 59, 0)),
                   });
                 }}
               />

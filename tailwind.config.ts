@@ -11,6 +11,9 @@ export default {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        square: "0px 0px 4px 1px",
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

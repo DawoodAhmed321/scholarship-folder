@@ -5,6 +5,7 @@ import appSlice from "./slices/appSlice";
 import offerSlice from "./slices/offerSlice";
 import scholarshipSlice from "./slices/scholarshipSlice";
 import testimonialSlice from "./slices/testimonialSlice";
+import contactSlice from "./slices/contactSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     offers: offerSlice,
     scholarships: scholarshipSlice,
     testimonials: testimonialSlice,
+    contact: contactSlice,
   },
 });
 

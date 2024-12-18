@@ -28,7 +28,7 @@ export const AppInput = React.forwardRef<HTMLInputElement, AppInput>(
             id={props.id}
             {...props}
             className={`${mergeClasses(
-              "flex-1 flex-grow bg-transparent  outline-none placeholder:   ",
+              "flex-1 flex-grow bg-transparent  outline-none placeholder:text-gray-400 ",
               className
             )}`}
             type={type == "password" ? (visible ? "password" : "text") : type}
