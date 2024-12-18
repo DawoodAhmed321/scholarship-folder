@@ -1,5 +1,6 @@
 import AdminHeader from "@/components/AdminHeader";
 import DatePicker from "@/components/app-date-picker/AppDatePicker";
+import EmptyMessage from "@/components/empty-message/EmptyMessage";
 import { TState } from "@/redux";
 import { setJoinTeam } from "@/redux/slices/contactSlice";
 import { openModal } from "@/redux/slices/modalSlice";
@@ -7,7 +8,12 @@ import http, { API_URL } from "@/services/http.services";
 import { showToast } from "@/utils/indext";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaUser, FaEnvelope } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaChevronCircleLeft,
+  FaChevronCircleRight,
+} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function GetInTouch() {
@@ -176,44 +182,73 @@ export default function GetInTouch() {
 
         {/* Data */}
 
-        <div className="my-4">
-          {joins.map((join) => (
-            <div
-              key={join.id}
-              className="px-4 py-2 shadow-sm shadow-black/60 rounded-md my-2"
-            >
-              <div className="flex  justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <FaEnvelope className="text-sm text-primary" />
-                    <h1 className="text-sm">{join.email}</h1>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaUser className="text-sm text-primary" />
-                    <h1 className="text-sm">By {join.name}</h1>
-                  </div>
-                  <h2 className="text-base mt-2">
-                    <span className="text-gray-400">Subject :</span> About{" "}
-                    {join.subject}
-                  </h2>
-                  <p className="text-gray-400 text-sm">
-                    Message :<span className="text-black">{join.message}</span>
-                  </p>
-                </div>
-                <div className="flex flex-col items-end gap-2">
-                  <p className="text-primary text-sm">
-                    {new Date(join.created_at).toDateString()}
-                  </p>
-                  <Link href={join.file.url} target="_blank">
-                    <p className="text-white bg-primary py-1 px-4 rounded-md w-fit">
-                      Open CV
+        {joins.length > 0 ? (
+          <div className="my-4">
+            {joins.map((join) => (
+              <div
+                key={join.id}
+                className="px-4 py-2 shadow-sm shadow-black/60 rounded-md my-2"
+              >
+                <div className="flex  justify-between xs:flex-row flex-col">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <FaEnvelope className="text-sm text-primary" />
+                      <h1 className="text-sm">{join.email}</h1>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FaUser className="text-sm text-primary" />
+                      <h1 className="text-sm">By {join.name}</h1>
+                    </div>
+                    <h2 className="text-base mt-2">
+                      <span className="text-gray-400">Subject :</span> About{" "}
+                      {join.subject}
+                    </h2>
+                    <p className="text-gray-400 text-sm">
+                      Message :
+                      <span className="text-black">{join.message}</span>
                     </p>
-                  </Link>
+                  </div>
+                  <div className="flex xs:flex-col flex-row items-end xs:justify-start justify-between gap-2">
+                    <p className="text-primary text-sm">
+                      {new Date(join.created_at).toDateString()}
+                    </p>
+                    <Link href={join.file.url} target="_blank">
+                      <p className="text-white bg-primary py-1 px-4 rounded-md w-fit">
+                        Open CV
+                      </p>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <EmptyMessage message="No Data Found" />
+        )}
+        {/* Pagination Section */}
+        {joins.length > 0 && (
+          <div className="flex items-center justify-center gap-4 mt-6">
+            {pagination.current_page > 1 && (
+              <FaChevronCircleLeft
+                className="text-3xl object-contain  text-primary cursor-pointer"
+                onClick={async () => {
+                  await initialLoading(pagination.current_page - 1, false);
+                }}
+              />
+            )}
+            <p className="text-sm flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md">
+              {pagination.current_page}
+            </p>
+            {pagination.current_page < pagination.last_page && (
+              <FaChevronCircleRight
+                className="text-3xl object-contain  text-primary cursor-pointer"
+                onClick={async () => {
+                  await initialLoading(pagination.current_page + 1, false);
+                }}
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

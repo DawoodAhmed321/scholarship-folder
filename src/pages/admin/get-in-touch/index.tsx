@@ -188,12 +188,12 @@ export default function GetInTouch() {
                 key={contact.id}
                 className="px-4 py-2 shadow-square shadow-black/20 rounded-md my-2"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex  justify-between">
                   <div className="flex items-center gap-2">
                     <FaUser className="text-sm text-primary" />
                     <h1 className="text-sm">By {contact.name}</h1>
                   </div>
-                  <p className="text-primary text-sm">
+                  <p className="text-primary text-sm xs:block hidden">
                     {new Date(contact.created_at).toDateString()}
                   </p>
                 </div>
@@ -208,6 +208,11 @@ export default function GetInTouch() {
                 </h2>
                 <p className="text-gray-400 text-sm">Message :</p>
                 <p className="text-base ml-2"> {contact.message}</p>
+                <div className="xs:hidden flex items-center justify-end">
+                  <p className="text-primary text-sm">
+                    {new Date(contact.created_at).toDateString()}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
