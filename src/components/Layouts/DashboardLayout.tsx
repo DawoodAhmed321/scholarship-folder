@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: ILayout) {
             ))}
           </div>
         </div>
-        <div className="flex-grow h-screen overflow-y-scroll sm:p-6 p-4 relative">
+        <div className="flex-grow h-screen overflow-y-scroll sm:p-6 p-4 relative flex flex-col">
           {loader && (
             <div className="absolute inset-0 flex justify-center items-center ">
               <Loader />

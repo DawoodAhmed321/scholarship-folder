@@ -9,8 +9,6 @@ import { ChartData } from "chart.js";
 import "chart.js/auto";
 import http, { API_URL } from "@/services/http.services";
 import { TContact, TJoinTeam } from "@/configs/interface";
-import { useDispatch } from "react-redux";
-import { setDashboardLoader } from "@/redux/slices/appSlice";
 
 const Line = dynamic(() => import("react-chartjs-2").then((mod) => mod.Line), {
   ssr: false,
@@ -65,7 +63,7 @@ function Dashboard() {
 
   return (
     <div className="pb-20">
-      <h1 className="text-3xl text-primary   ">Dashboard</h1>
+      <h1 className="text-3xl text-primary">Dashboard</h1>
       {data && (
         <>
           {/* Line Chart Section */}

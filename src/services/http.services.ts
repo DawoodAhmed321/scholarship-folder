@@ -6,6 +6,7 @@ import Router from "next/router";
 
 export const API_URL = {
   LOGIN: "login",
+  LOGOUT: "logout",
   REGISTER: "register",
   PROFILE: "profile",
   HOME: "home",

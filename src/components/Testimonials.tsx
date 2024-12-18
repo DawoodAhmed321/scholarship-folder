@@ -68,7 +68,7 @@ export const Testimonials = ({ testimonials }: ITestimonialProps) => {
             >
               <div className="relative w-full min-h-44">
                 <Image
-                  layout="fill"
+                  fill
                   className="  object-cover "
                   src={testimonial.image.url}
                   alt={`testimonial-${index}`}

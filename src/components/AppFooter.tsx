@@ -1,5 +1,6 @@
 import { NAVBAR_MENU, SOCIAL_LINKS } from "@/configs";
 import Link from "next/link";
+import Router from "next/router";
 import React from "react";
 import { LuSend } from "react-icons/lu";
 
@@ -70,13 +71,24 @@ export default function AppFooter() {
             Need Answers? Need Help ? <br />
             Just Email Us
           </p>
-          <div className="flex items-center border border-black/30 rounded-md bg-white px-2 py-1 ">
-            <input
-              type="email"
-              className="border-none outline-none flex-1"
-              placeholder="Enter your email address"
-            />
-            <LuSend className="text-xl " />
+          <div>
+            <form
+              className="flex items-center border border-black/30 rounded-md bg-white px-2 py-1"
+              onSubmit={(e) => {
+                e.preventDefault();
+                Router.push("/contact");
+              }}
+            >
+              <input
+                type="email"
+                className="border-none outline-none flex-1"
+                placeholder="Enter your email address"
+                required
+              />
+              <button type="submit">
+                <LuSend className="text-xl " />
+              </button>
+            </form>
           </div>
         </div>
       </div>

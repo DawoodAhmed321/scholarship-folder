@@ -59,6 +59,7 @@ export const APP_ROUTES = {
   ABOUT: "/about-us",
   CONTACT: "/contact-us",
   OFFERS: "/offers",
+
   SCHOLARSHIPS: "/scholarships",
   HOME: "/",
   TESTIMONIALS: (id: string | number) => `/testimonials/${id}`,
@@ -66,6 +67,7 @@ export const APP_ROUTES = {
   ADMIN_DASHBOARD: "/admin/dashboard",
   HOME_PAGE: "/admin/home-page",
   ADMIN_LOGIN: "/admin/login",
+  LOGOUT: "/admin/logout",
 
   GET_IN_TOUCH_MAILS: "/admin/get-in-touch",
   JOIN_TEAM_MAILS: "/admin/join-team",
@@ -117,7 +119,7 @@ export const DASHBOARD_MODULE = [
       {
         id: 5,
         title: "Logout",
-        link: APP_ROUTES.HOME_PAGE,
+        link: APP_ROUTES.LOGOUT,
         Icon: HiLogout,
       },
     ],
