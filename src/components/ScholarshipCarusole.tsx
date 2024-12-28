@@ -12,9 +12,9 @@ interface IScholarshipCarusole {
 
 export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
   return (
-    <div className="px-6 py-12 flex items-center w-full max-w-[630px] sm:h-[448px] xs:h-96 h-72 relative">
+    <div className="px-6 py-6 flex items-center w-full max-w-[630px] sm:h-[448px] xs:h-96 h-72 relative">
       <FaChevronCircleLeft
-        className={`xs:text-3xl text-xl object-contain text-black swiper-button-prev-${item.id} select-none cursor-pointer absolute left-6 top-1/2 z-20 -translate-y-1/2`}
+        className={`xs:text-3xl text-xl object-contain text-black swiper-button-prev-${item.id} select-none cursor-pointer absolute left-1 top-1/2 z-20 -translate-y-1/2`}
       />
       <Swiper
         modules={[Navigation, Autoplay]}
@@ -35,7 +35,7 @@ export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
           <SwiperSlide key={index.toString()}>
             <div className="select-none size-full relative">
               <Image
-                className="size-full  object-contain"
+                className="size-full  object-cover"
                 src={image.url}
                 alt={`testimonial-${index}`}
                 layout="fill"
@@ -45,7 +45,7 @@ export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
         ))}
       </Swiper>
       <FaChevronCircleRight
-        className={`xs:text-3xl text-xl text-black swiper-button-next-${item.id} select-none cursor-pointer absolute right-6 top-1/2 z-20 -translate-y-1/2`}
+        className={`xs:text-3xl text-xl text-black swiper-button-next-${item.id} select-none cursor-pointer absolute right-1 top-1/2 z-20 -translate-y-1/2`}
       />
     </div>
   );

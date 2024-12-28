@@ -75,7 +75,7 @@ function Scholarship({ scholarship }: IScholarship) {
           {data.data.map((item, index) => (
             <div key={index}>
               <div className="flex md:flex-row flex-col gap-6 my-2">
-                <div className=" bg-white rounded-md overflow-hidden  ">
+                <div className=" bg-white rounded-md overflow-hidden min-w-96 ">
                   <ScholarshipCarusole item={item} />
                 </div>
                 <div className="flex-1 p-2 flex flex-col gap-4">

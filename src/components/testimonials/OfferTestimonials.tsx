@@ -76,14 +76,14 @@ export const OfferTestimonials = ({ testimonials }: ITestimonialProps) => {
                     alt={`testimonial-${index}`}
                   />
                 </div>
-                <div className="p-4 min-h-44 overflow-hidden">
+                <div className="p-4  overflow-hidden">
                   <h3 className="text-xl font-bold">{testimonial.name}</h3>
                   <div className="flex items-center gap-1">
                     {Array.from({ length: 5 }).map((_, index) => (
                       <FaStar className="text-yellow-400 text-sm" key={index} />
                     ))}
                   </div>
-                  <p className="text-[10px] font-light mt-1 line-clamp-3">
+                  <p className="text-[10px] min-h-16 font-light mt-1 line-clamp-3">
                     " {testimonial.description} "
                   </p>
                   <div className="text-xs mt-2 font-bitter font-bold">
