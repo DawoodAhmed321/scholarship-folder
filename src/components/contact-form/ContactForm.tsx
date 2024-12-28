@@ -100,7 +100,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit(submitForm)}
     >
       <h3 className="text-4xl font-bold mb-6">Get In Touch With Us</h3>
-      <div className="flex gap-4 ">
+      <div className="flex gap-4 sm:flex-row flex-col ">
         <div className=" basis-1/2">
           <AppInput
             placeholder="Enter Your Name"
@@ -119,7 +119,7 @@ export default function ContactForm() {
           />
         </div>
       </div>
-      <div className=" flex gap-4 my-4">
+      <div className=" flex gap-4 my-4 sm:flex-row flex-col">
         <div className="basis-1/2">
           <AppInput
             type="text"

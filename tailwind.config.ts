@@ -24,7 +24,7 @@ export default {
         xs: "480px",
       },
       fontFamily: {
-        geist: ["--font-geist-mono"],
+        bitter: ["var(--font-bitter)"],
       },
     },
   },

@@ -1,3 +1,4 @@
+import { mergeClasses } from "@/utils/indext";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { FaMinus } from "react-icons/fa";
@@ -8,9 +9,15 @@ interface ICollapsible {
     title: string;
     content: React.JSX.Element;
   };
+  className?: string;
+  collapsibleClassName?: string;
 }
 
-export default function Collapsible({ item }: ICollapsible) {
+export default function Collapsible({
+  item,
+  className,
+  collapsibleClassName,
+}: ICollapsible) {
   const divRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
@@ -31,10 +38,15 @@ export default function Collapsible({ item }: ICollapsible) {
 
   return (
     <div className="px-1">
-      <div className="flex items-center justify-between bg-secondary/50 rounded-md px-3 py-1 shadow-md">
-        <h1 className="my-2  text-lg">{item.title}</h1>
+      <div
+        className={` ${mergeClasses(
+          "flex items-center justify-between bg-secondary/50 rounded-md px-3 py-2 shadow-md",
+          className
+        )}`}
+      >
+        <h1 className="my-2  xs:text-lg text-base font-medium">{item.title}</h1>
 
-        <div className="bg-black p-1 rounded-md text-white">
+        <div className="rounded-md text-gray-500 ">
           {visible ? (
             <FaMinus
               size={18}
@@ -55,7 +67,10 @@ export default function Collapsible({ item }: ICollapsible) {
         style={{
           height,
         }}
-        className={` overflow-hidden transition-height duration-500 ease-in-out`}
+        className={` -mt-2 rounded-b-md ${mergeClasses(
+          "overflow-hidden transition-height duration-500 ease-in-out  ",
+          collapsibleClassName
+        )}`}
       >
         {item.content}
       </div>

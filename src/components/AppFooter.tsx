@@ -1,10 +1,32 @@
 import { NAVBAR_MENU, SOCIAL_LINKS } from "@/configs";
+import { TState } from "@/redux";
+import { setFooter } from "@/redux/slices/appSlice";
+import http, { API_URL } from "@/services/http.services";
 import Link from "next/link";
 import Router from "next/router";
-import React from "react";
-import { LuSend } from "react-icons/lu";
+import React, { useEffect } from "react";
+import { LuFacebook, LuInstagram, LuSend } from "react-icons/lu";
+import { RiTwitterXFill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AppFooter() {
+  const dispatch = useDispatch();
+
+  const footer = useSelector((state: TState) => state.app.footer);
+
+  useEffect(() => {
+    handleFooterData();
+  }, []);
+
+  const handleFooterData = async () => {
+    try {
+      const resp = await http.get(API_URL.HOME);
+      dispatch(setFooter(resp.data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <div className="bg-secondary lg:px-20 sm:px-12 px-6 py-12 grid lg:grid-cols-[1.2fr,1fr,1fr,1fr] sm:grid-cols-2 sm:gap-12 gap-6">
@@ -39,30 +61,72 @@ export default function AppFooter() {
                 <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
               </Link>
             ))}
+
+            <Link
+              className="w-fit [&:hover>div]:w-full [&:hover>h3]:text-blue-400 "
+              href="/privacy-policy"
+            >
+              <h3 className="text-sm text-black/70 transition-colors duration-300 ease-in-out">
+                Privacy Policy
+              </h3>
+              <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
+            </Link>
+            <Link
+              className="w-fit [&:hover>div]:w-full [&:hover>h3]:text-blue-400 "
+              href="/terms-and-conditions"
+            >
+              <h3 className="text-sm text-black/70 transition-colors duration-300 ease-in-out">
+                Terms and Conditions
+              </h3>
+              <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
+            </Link>
           </div>
         </div>
         <div>
           <h2 className="text-xl font-semibold">Social Links</h2>
 
           <div className="my-4 flex flex-col gap-4">
-            {SOCIAL_LINKS.map((social) => (
-              <Link
-                key={social.id}
-                className="w-fit [&:hover>div]:w-full [&:hover>div>h3]:text-blue-400 [&:hover>div>svg]:text-blue-400"
-                href={social.link}
-              >
-                <div className="flex items-center gap-1">
-                  {social.icon({
-                    className:
-                      "text-xl text-black/70 transition-colors duration-300 ease-in-out",
-                  })}
-                  <h3 className="text-sm text-black/70 transition-colors duration-300 ease-in-out">
-                    {social.name}
-                  </h3>
-                </div>
-                <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
-              </Link>
-            ))}
+            <Link
+              className="w-fit [&:hover>div]:w-full [&:hover>div>h3]:text-blue-400 [&:hover>div>svg]:text-blue-400"
+              href={footer.facebook}
+              target="_blank"
+            >
+              <div className="flex items-center gap-1">
+                <LuFacebook className="text-lg text-black/70 transition-colors duration-300 ease-in-out" />
+
+                <h3 className="text-sm text-black/70 transition-colors duration-300 ease-in-out">
+                  facebook
+                </h3>
+              </div>
+              <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
+            </Link>
+            <Link
+              className="w-fit [&:hover>div]:w-full [&:hover>div>h3]:text-blue-400 [&:hover>div>svg]:text-blue-400"
+              href={footer.instagram}
+              target="_blank"
+            >
+              <div className="flex items-center gap-1">
+                <LuInstagram className="text-lg text-black/70 transition-colors duration-300 ease-in-out" />
+                <h3 className="text-sm text-black/70 transition-colors duration-300 ease-in-out">
+                  Instagram
+                </h3>
+              </div>
+              <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
+            </Link>
+            <Link
+              className="w-fit [&:hover>div]:w-full [&:hover>div>h3]:text-blue-400 [&:hover>div>svg]:text-blue-400"
+              href={footer.twitter}
+              target="_blank"
+            >
+              <div className="flex items-center gap-1">
+                <RiTwitterXFill className="text-lg text-black/70 transition-colors duration-300 ease-in-out" />
+
+                <h3 className="text-sm text-black/70 transition-colors duration-300 ease-in-out">
+                  Twitter
+                </h3>
+              </div>
+              <div className="h-[2px] bg-blue-400 w-0 transition-all duration-300 ease-in-out"></div>
+            </Link>
           </div>
         </div>
         <div>

@@ -4,6 +4,10 @@
 
 /* Extra Utils */
 
+* {
+  font-family: var(--font-bitter);
+}
+
 .blur-background {
   position: relative;
   width: 100%;

@@ -56,8 +56,8 @@ export const SOCIAL_LINKS = [
 ];
 
 export const APP_ROUTES = {
-  ABOUT: "/about-us",
-  CONTACT: "/contact-us",
+  ABOUT: "/about",
+  CONTACT: "/contact",
   OFFERS: "/offers",
 
   SCHOLARSHIPS: "/scholarships",
@@ -253,5 +253,44 @@ export const TESTIMONIALS = [
     image: "https://i.pravatar.cc/350?img=2",
     review:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, repellat.",
+  },
+];
+
+export const OFFERS_SKILLS = [
+  {
+    id: 1,
+    name: "Listening",
+    img: "/images/g1.webp",
+  },
+  {
+    id: 2,
+    name: "Speaking",
+    img: "/images/g3.webp",
+  },
+  {
+    id: 4,
+    name: "Writing",
+    img: "/images/g2.webp",
+  },
+];
+
+export const SKILLS_PROCESS = [
+  {
+    id: 1,
+    name: "Leadership",
+    description: "Fully committed to the success company",
+    img: "/images/icons/badge.svg",
+  },
+  {
+    id: 2,
+    name: "Responsibility",
+    description: "Employees will always be my top priority",
+    img: "/images/icons/brain.svg",
+  },
+  {
+    id: 3,
+    name: "Flexibility",
+    description: "The ability to switch is an important skill",
+    img: "/images/icons/bolt.svg",
   },
 ];

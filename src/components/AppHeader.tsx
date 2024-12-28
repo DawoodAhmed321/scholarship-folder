@@ -11,7 +11,7 @@ export default function AppHeader() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className="font-mono">
+    <div>
       <nav className="flex justify-between md:items-start items-center lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 py-4 bg-secondary ">
         <img
           src="/images/logo.svg"
@@ -24,7 +24,7 @@ export default function AppHeader() {
             {NAVBAR_MENU.map((menu) => (
               <Link key={menu.id.toString()} href={menu.link}>
                 <h1
-                  className={`text-xl hover:text-blue-400 ${
+                  className={`text-xl hover:text-blue-400 font-bitter ${
                     router.pathname == menu.link
                       ? "text-blue-400"
                       : "text-black"
@@ -42,6 +42,7 @@ export default function AppHeader() {
             onClick={() => setIsOpen(true)}
           />
         </div>
+        <div className="md:block hidden"></div>
       </nav>
 
       {/* Drawer */}

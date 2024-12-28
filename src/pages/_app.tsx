@@ -7,6 +7,13 @@ import { NextComponentType, NextPageContext } from "next";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import "swiper/css";
+import { Bitter } from "next/font/google";
+
+const font = Bitter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-bitter",
+});
 
 interface IAppComonent extends AppProps {
   Component: NextComponentType<NextPageContext, any, any> & {
@@ -18,12 +25,14 @@ export default function App({ Component, pageProps }: IAppComonent) {
   const Layout = Component.Layout || EmptyLayout;
 
   return (
-    <Provider store={store}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-      <Toast />
-      <ManagedModal />
-    </Provider>
+    <div className={`${font.variable}`}>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+        <Toast />
+        <ManagedModal />
+      </Provider>
+    </div>
   );
 }

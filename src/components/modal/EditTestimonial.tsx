@@ -26,6 +26,13 @@ const testimonialSchema = Yup.object().shape({
       }
       return true;
     }),
+  university: Yup.string().required().min(3),
+  program: Yup.string().required().min(3),
+  scholarshipProgram: Yup.string()
+    .required()
+    .min(3)
+    .label("scholarship program"),
+  session: Yup.string().required().min(3),
 });
 
 export default function EditTestimonial() {
@@ -46,6 +53,10 @@ export default function EditTestimonial() {
       name: testimonial.name,
       description: testimonial.description,
       image: testimonial.image.url,
+      university: testimonial.university,
+      program: testimonial.program,
+      scholarshipProgram: testimonial.scholarshipProgram,
+      session: testimonial.session,
     },
     resolver: yupResolver(testimonialSchema),
   });
@@ -56,7 +67,11 @@ export default function EditTestimonial() {
   const editTestimonial = async (value: {
     name: string;
     description: string;
-    image: File | string;
+    image: NonNullable<string | File | undefined>;
+    university: string;
+    program: string;
+    scholarshipProgram: string;
+    session: string;
   }) => {
     try {
       setLoader(true);
@@ -68,6 +83,10 @@ export default function EditTestimonial() {
         "image",
         typeof value.image == "string" ? `["${value.image}"]` : value.image
       );
+      data.append("university", value.university);
+      data.append("program", value.program);
+      data.append("scholarshipProgram", value.scholarshipProgram);
+      data.append("session", value.session);
       const resp = await http.put(API_URL.TESTIMONIALS, data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -102,10 +121,40 @@ export default function EditTestimonial() {
           {...register("name")}
           error={errors.name?.message}
         />
+        <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 mt-2">
+          <div>
+            <AppInput
+              placeholder="Enter Univesity"
+              {...register("university")}
+              error={errors.university?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              placeholder="Enter Program"
+              {...register("program")}
+              error={errors.program?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              placeholder="Enter Scholarship Program"
+              {...register("scholarshipProgram")}
+              error={errors.scholarshipProgram?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              placeholder="Enter Session"
+              {...register("session")}
+              error={errors.session?.message}
+            />
+          </div>
+        </div>
         <div className="my-4">
           <textarea
             {...register("description")}
-            rows={4}
+            rows={2}
             placeholder="Enter Description"
             className="border border-secondary/50 outline-none w-full p-2 rounded-md "
           ></textarea>

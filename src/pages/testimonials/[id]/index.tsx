@@ -1,12 +1,10 @@
-import AppButton from "@/components/app-buttons/AppButton";
 import AppLayout from "@/components/Layouts/AppLayout";
 import Loader from "@/components/loader/Loader";
-import { TESTIMONIALS } from "@/configs";
 import { ITestimonial } from "@/configs/interface";
 import http, { API_URL } from "@/services/http.services";
 import { GetServerSidePropsContext } from "next";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
@@ -72,13 +70,13 @@ function TestimonialsDetails({
 
   return (
     <div>
-      <div className="px-8 mt-8 hero-heading">
-        <h3 className="text-3xl  ">We Love To Have</h3>
-        <h3 className="font-bold text-5xl text-primary">
-          Our Smiling Customers
-        </h3>
-      </div>
       <div className="bg-gradient-to-tr from-secondary to-primary my-8 sm:mx-8 mx-4 sm:p-8 p-4 rounded-lg shadow-sm">
+        <div className="px-0 mb-8 hero-heading">
+          <h3 className="xs:text-3xl text-xl text-white ">We Love To Have</h3>
+          <h3 className="font-bold md:text-5xl xs:text-4xl text-3xl text-white">
+            Our Smiling Customers
+          </h3>
+        </div>
         <div className=" grid lg:grid-cols-[repeat(9,minmax(0,1fr))] sm:grid-cols-3 grid-cols-2  gap-6">
           {data.map((t, index) => (
             <div
@@ -91,12 +89,10 @@ function TestimonialsDetails({
                 testimonialDiv && testimonialDiv.current?.scrollIntoView();
               }}
             >
-              <Image
+              <img
                 src={t.image.url}
                 alt={t.name}
-                className="w-16 h-16 rounded-full bg-white object-cover"
-                width={64}
-                height={64}
+                className="size-20 rounded-full bg-white object-cover"
               />
             </div>
           ))}
@@ -126,10 +122,8 @@ function TestimonialsDetails({
                 <div className="bg-white border-2 border-primary text-white absolute top-0 sm:right-2 left-24 size-8 rounded-full"></div>
                 <div className="bg-white border-2 border-primary text-white absolute -top-2 sm:-right-0 left-[130px] size-3 rounded-full"></div>
 
-                <Image
-                  className="size-36 rounded-full border-2 border-primary object-cover"
-                  width={144}
-                  height={144}
+                <img
+                  className="size-40 rounded-full border-2 border-primary object-cover"
                   src={selectedTestimonial.image.url}
                   alt="profile"
                 />

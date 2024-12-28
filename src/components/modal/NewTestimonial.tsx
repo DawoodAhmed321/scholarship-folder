@@ -22,6 +22,13 @@ const testimonialSchema = Yup.object().shape({
       }
       return true;
     }),
+  university: Yup.string().required().min(3),
+  program: Yup.string().required().min(3),
+  scholarshipProgram: Yup.string()
+    .required()
+    .min(3)
+    .label("scholarship program"),
+  session: Yup.string().required().min(3),
 });
 
 export default function NewTestimonial() {
@@ -39,9 +46,13 @@ export default function NewTestimonial() {
   const dispatch = useDispatch();
 
   const addNewTestimonial = async (value: {
-    name: string;
     description: string;
     image: File;
+    name: string;
+    university: string;
+    program: string;
+    scholarshipProgram: string;
+    session: string;
   }) => {
     try {
       setLoader(true);
@@ -49,6 +60,10 @@ export default function NewTestimonial() {
       data.append("name", value.name);
       data.append("description", value.description);
       data.append("image", value.image);
+      data.append("university", value.university);
+      data.append("program", value.program);
+      data.append("scholarshipProgram", value.scholarshipProgram);
+      data.append("session", value.session);
       const resp = await http.post(API_URL.TESTIMONIALS, data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -78,15 +93,48 @@ export default function NewTestimonial() {
         />
       </div>
       <form onSubmit={handleSubmit(addNewTestimonial)}>
-        <AppInput
-          placeholder="Enter Name"
-          {...register("name")}
-          error={errors.name?.message}
-        />
-        <div className="my-4">
+        <div>
+          <AppInput
+            placeholder="Enter Name"
+            {...register("name")}
+            error={errors.name?.message}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 mt-2">
+          <div>
+            <AppInput
+              placeholder="Enter Univesity"
+              {...register("university")}
+              error={errors.university?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              placeholder="Enter Program"
+              {...register("program")}
+              error={errors.program?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              placeholder="Enter Scholarship Program"
+              {...register("scholarshipProgram")}
+              error={errors.scholarshipProgram?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              placeholder="Enter Session"
+              {...register("session")}
+              error={errors.session?.message}
+            />
+          </div>
+        </div>
+        <div className="my-2">
           <textarea
             {...register("description")}
-            rows={4}
+            rows={2}
             placeholder="Enter Description"
             className="border border-secondary/50 outline-none w-full p-2 rounded-md "
           ></textarea>
@@ -96,6 +144,7 @@ export default function NewTestimonial() {
             </p>
           )}
         </div>
+
         <div className="flex items-center justify-between flex-wrap">
           <div>
             <Controller

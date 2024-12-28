@@ -66,4 +66,21 @@ export function mergeClasses(defaultClass: string, className?: string) {
   return Array.from(resultClassSet).join(" ");
 }
 
+export function convertTimeToDate(timeString: string) {
+  // Create a new Date object for the current date
+  console.log(timeString);
+  const date = new Date();
+
+  // Extract hours and minutes from the time string
+  const [hours, minutes] = timeString.split(":").map(Number);
+
+  // Set the hours and minutes of the date object
+  date.setHours(hours);
+  date.setMinutes(minutes);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+
+  return date;
+}
+
 export { useDebounce, isStringArray };

@@ -7,10 +7,13 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { Navigation, Autoplay } from "swiper/modules";
-import { APP_ROUTES, TESTIMONIALS } from "@/configs";
+import { APP_ROUTES } from "@/configs";
 import Link from "next/link";
 import { ITestimonial } from "@/configs/interface";
 import Image from "next/image";
+import { LuBriefcaseBusiness, LuSchool } from "react-icons/lu";
+import { LiaSchoolSolid } from "react-icons/lia";
+import { IoSchoolOutline } from "react-icons/io5";
 
 interface ITestimonialProps {
   testimonials: ITestimonial[];
@@ -23,7 +26,6 @@ export const Testimonials = ({ testimonials }: ITestimonialProps) => {
 
       <Swiper
         modules={[Navigation, Autoplay]}
-        // centeredSlides
         watchSlidesProgress
         breakpoints={{
           320: {
@@ -31,19 +33,19 @@ export const Testimonials = ({ testimonials }: ITestimonialProps) => {
             spaceBetween: 20,
           },
           640: {
-            slidesPerView: 1,
+            slidesPerView: 2,
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 20,
           },
           1024: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 20,
           },
           1280: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 20,
           },
         }}
@@ -58,13 +60,15 @@ export const Testimonials = ({ testimonials }: ITestimonialProps) => {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
-        className="w-[720px]"
+        className="w-[920px]"
       >
         {testimonials.map((testimonial, index) => (
           <SwiperSlide key={index.toString()}>
             <Link
               href={APP_ROUTES.TESTIMONIALS(testimonial.id)}
-              className="h-full flex flex-col select-none bg-secondary rounded-xl overflow-hidden"
+              className={`h-full flex flex-col select-none bg-secondary rounded-xl overflow-hidden ${
+                index % 2 == 0 ? "xs:mt-20" : ""
+              }`}
             >
               <div className="relative w-full min-h-44">
                 <Image
@@ -74,16 +78,35 @@ export const Testimonials = ({ testimonials }: ITestimonialProps) => {
                   alt={`testimonial-${index}`}
                 />
               </div>
-              <div className="p-4 h-44 overflow-hidden">
-                <h3 className="text-2xl font-bold">{testimonial.name}</h3>
+              <div className="p-4 min-h-44 overflow-hidden">
+                <h3 className="text-xl font-bold">{testimonial.name}</h3>
                 <div className="flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <FaStar className="text-yellow-400" key={index} />
+                    <FaStar className="text-yellow-400 text-sm" key={index} />
                   ))}
                 </div>
-                <p className="text-sm mt-1 line-clamp-5">
+                <p className="text-[10px] font-light mt-1 line-clamp-3">
                   " {testimonial.description} "
                 </p>
+                <div className="text-xs mt-2 font-bitter font-bold">
+                  <div className="flex items-center justify-between py-1.5 border-b border-black/20">
+                    <p>{testimonial.university}</p>
+                    <LuSchool />
+                  </div>
+
+                  <div className="flex items-center justify-between py-1.5 border-b border-black/20">
+                    <p>{testimonial.program}</p>
+                    <LiaSchoolSolid />
+                  </div>
+                  <div className="flex items-center justify-between py-1.5 border-b border-black/20">
+                    <p>{testimonial.scholarshipProgram}</p>
+                    <IoSchoolOutline />
+                  </div>
+                  <div className=" flex items-center justify-between py-1.5 ">
+                    <p>Session {testimonial.session}</p>
+                    <LuBriefcaseBusiness />
+                  </div>
+                </div>
               </div>
             </Link>
           </SwiperSlide>

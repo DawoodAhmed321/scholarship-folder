@@ -64,4 +64,8 @@ export interface ITestimonial {
     id: string | number;
     url: string;
   };
+  university: string;
+  program: string;
+  scholarshipProgram: string;
+  session: string;
 }

@@ -1,0 +1,35 @@
+/* components/VerticalMarquee.module.css */
+.marqueeContainer {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.marqueeContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  animation: scroll 8s linear infinite;
+}
+
+.marqueeContent:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.marqueeInner {
+  display: flex;
+  flex-direction: column;
+}
+
+.marqueeInner > * {
+  flex-shrink: 0;
+}
