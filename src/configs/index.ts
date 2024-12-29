@@ -32,26 +32,10 @@ export const NAVBAR_MENU = [
     name: "Contact",
     link: "/contact",
   },
-];
-
-export const SOCIAL_LINKS = [
   {
-    id: 1,
-    name: "@Saad",
-    link: "https://www.facebook.com/",
-    icon: LuFacebook,
-  },
-  {
-    id: 2,
-    name: "@SyedSaad",
-    link: "https://www.instagram.com/",
-    icon: LuInstagram,
-  },
-  {
-    id: 3,
-    name: "@SyedSaad",
-    link: "https://www.twitter.com/",
-    icon: RiTwitterXFill,
+    id: 6,
+    name: "Assistance",
+    link: "/assistance",
   },
 ];
 
@@ -59,6 +43,7 @@ export const APP_ROUTES = {
   ABOUT: "/about",
   CONTACT: "/contact",
   OFFERS: "/offers",
+  ASSISTANCE: "/assistance",
 
   SCHOLARSHIPS: "/scholarships",
   HOME: "/",

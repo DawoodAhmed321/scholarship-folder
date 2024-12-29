@@ -1,6 +1,5 @@
 import Collapsible from "@/components/Collapsible";
 import AppLayout from "@/components/Layouts/AppLayout";
-import { SOCIAL_LINKS } from "@/configs";
 import Link from "next/link";
 import React from "react";
 import { ImLocation } from "react-icons/im";
@@ -9,6 +8,9 @@ import { IoIosClock, IoMdMail } from "react-icons/io";
 import ContactForm from "@/components/contact-form/ContactForm";
 import { useSelector } from "react-redux";
 import { TState } from "@/redux";
+import { MdFacebook } from "react-icons/md";
+import { IoLogoInstagram } from "react-icons/io5";
+import { RiTwitterXFill } from "react-icons/ri";
 
 function ContactUs() {
   const contact = useSelector((state: TState) => state.app.footer);
@@ -150,14 +152,15 @@ function ContactUs() {
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-semibold">Social Media :</h3>
             <div className="flex items-center gap-3">
-              {SOCIAL_LINKS.map((link, index) => (
-                <Link href={getLink(index)} key={link.id} target="_blank">
-                  {link.icon({
-                    className:
-                      "text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out",
-                  })}
-                </Link>
-              ))}
+              <Link href={contact.facebook} target="_blank">
+                <MdFacebook className="text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
+              </Link>
+              <Link href={contact.facebook} target="_blank">
+                <IoLogoInstagram className="text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
+              </Link>
+              <Link href={contact.facebook} target="_blank">
+                <RiTwitterXFill className="text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
+              </Link>
             </div>
           </div>
         </div>

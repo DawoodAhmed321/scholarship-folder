@@ -1,4 +1,4 @@
-import { NAVBAR_MENU, SOCIAL_LINKS } from "@/configs";
+import { NAVBAR_MENU } from "@/configs";
 import { TState } from "@/redux";
 import { setFooter } from "@/redux/slices/appSlice";
 import http, { API_URL } from "@/services/http.services";
