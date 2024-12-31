@@ -24,9 +24,9 @@ export default function AppHeader() {
             {NAVBAR_MENU.map((menu) => (
               <Link key={menu.id.toString()} href={menu.link}>
                 <h1
-                  className={`text-xl hover:text-blue-400 font-bitter ${
+                  className={`text-xl hover:text-blue-800 font-bitter ${
                     router.pathname == menu.link
-                      ? "text-blue-400"
+                      ? "text-blue-800"
                       : "text-black"
                   } `}
                 >

@@ -137,7 +137,7 @@ export default function AppFooter() {
           </p>
           <div>
             <form
-              className="flex items-center border border-black/30 rounded-md bg-white px-2 py-1"
+              className="flex items-center gap-1.5 border border-black/30 rounded-md bg-white px-2 py-1"
               onSubmit={(e) => {
                 e.preventDefault();
                 Router.push("/contact");
@@ -149,7 +149,9 @@ export default function AppFooter() {
                 placeholder="Enter your email address"
                 required
               />
-              <button type="submit">
+              <button type="submit"
+              aria-label="Subscribe"
+              >
                 <LuSend className="text-xl " />
               </button>
             </form>

@@ -12,7 +12,7 @@ interface IScholarshipCarusole {
 
 export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
   return (
-    <div className="px-6 py-6 flex items-center w-full max-w-[630px] sm:h-[448px] xs:h-96 h-72 relative">
+    <div className="xs:p-6 p-4 flex items-center w-full sm:h-[448px] xs:h-96 h-72 relative">
       <FaChevronCircleLeft
         className={`xs:text-3xl text-xl object-contain text-black swiper-button-prev-${item.id} select-none cursor-pointer absolute left-1 top-1/2 z-20 -translate-y-1/2`}
       />
@@ -23,8 +23,6 @@ export default function ScholarshipCarusole({ item }: IScholarshipCarusole) {
           delay: 2500,
           disableOnInteraction: true,
         }}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
         navigation={{
           nextEl: `.swiper-button-next-${item.id}`,
           prevEl: `.swiper-button-prev-${item.id}`,

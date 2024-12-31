@@ -1,3 +1,4 @@
+import Div from "@/components/animated-container/Div";
 import EmptyMessage from "@/components/empty-message/EmptyMessage";
 import AppLayout from "@/components/Layouts/AppLayout";
 import Loader from "@/components/loader/Loader";
@@ -82,6 +83,10 @@ function Offers({ data, testimonials }: IOffer) {
       {/* Hero Section */}
 
       <div className="flex lg:flex-row flex-col gap-4 relative">
+        <Div
+          animation="translateX"
+          delay={0.7}
+        >
         <div className="xs:min-w-80">
           <h1 className=" lg:text-7xl md:text-5xl xs:text-4xl text-3xl font-bold text-primary mt-24">
             Watch.
@@ -91,10 +96,14 @@ function Offers({ data, testimonials }: IOffer) {
             Grow.
           </h1>
         </div>
+        </Div>
+       
         <div className="flex flex-1 lg:flex-nowrap flex-wrap gap-y-6 ">
           {OFFERS_SKILLS.map((item, index) => (
-            <div
-              key={index}
+             <Div
+             animation="-translateX"
+             delay={index*0.5}
+             key={index}
               className={` transition-all duration-500 ease-in-out cursor-pointer
                md:h-[590px] h-96 overflow-hidden rounded-xl shadow-square shadow-black/10
                 relative md:mx-3 ${
@@ -147,15 +156,20 @@ function Offers({ data, testimonials }: IOffer) {
                   </p>
                 </div>
               </div>
-            </div>
+            </Div>
           ))}
         </div>
+        <Div
+        animation="-translateY"
+        delay={1.2}
+         className="lg:absolute right-0 left-0 bottom-20 "
+        >
         <form
           onSubmit={(e) => {
             e.preventDefault();
             Router.push(APP_ROUTES.CONTACT);
           }}
-          className="flex lg:mt-24 mt-12 max-w-96  border border-black/20 rounded-xl overflow-hidden lg:absolute right-0 left-0 bottom-20 bg-white"
+         className="flex lg:mt-24 mt-12 max-w-96  border border-black/20 rounded-xl overflow-hidden bg-white "
         >
           <input
             type="text"
@@ -173,16 +187,23 @@ function Offers({ data, testimonials }: IOffer) {
             Subscribe
           </button>
         </form>
+        </Div>
       </div>
 
-      <h3 className="xs:text-3xl text-center text-xl mt-24 mb-16">
+
+      <h2 className="xs:text-3xl text-center text-xl mt-24 mb-16">
         Our offers are designed to help you grow your skills and knowledge.
-      </h3>
+      </h2>
       {offers.data.length > 0 ? (
         <>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-6">
             {offers.data.map((offer, index) => (
-              <OfferCard key={index} offer={offer} />
+              <Div
+                key={index}
+                animation="-translateY"
+              >
+                <OfferCard  offer={offer} />
+              </Div>
             ))}
           </div>
           {offers.pagination.current_page < offers.pagination.last_page && (
@@ -203,22 +224,35 @@ function Offers({ data, testimonials }: IOffer) {
       <div>
         <div className="flex md:flex-row flex-col lg:gap-20 md:gap-12 gap-8 mt-28 mb-16">
           <div className="basis-[45%]">
+            <Div
+              animation="translateX"
+            >
             <h3 className="lg:text-5xl text-3xl">
               Get the skills you need for a job that is in demand.
             </h3>
+            </Div>
           </div>
           <div className="basis-[55%] relative">
+            <Div
+              animation="-translateX"
+            >
             <p className=" lg:text-xl text-base ">
               The modern labor market dictates its own terms. Today, to be a
               competitive specialist requires more than professional skills.
             </p>
+            </Div>
           </div>
         </div>
 
         <div className="flex lg:flex-row flex-col gap-6">
-          <div className="basis-1/3 flex lg:flex-col flex-row flex-wrap lg:justify-start justify-between lg:my-0 my-8">
+          <div className="basis-1/3  lg:my-0 my-8">
+            <Div
+              animation="translateX"
+              delay={0.5}
+              className="flex lg:flex-col flex-row flex-wrap lg:justify-start justify-between"
+            >
             {SKILLS_PROCESS.map((item, index) => (
-              <div className="flex gap-8 relative py-5">
+              <div className="flex gap-8 relative py-5" key={index} >
                 <div>
                   <img
                     src={item.img}
@@ -237,9 +271,13 @@ function Offers({ data, testimonials }: IOffer) {
                 )}
               </div>
             ))}
+            </Div>
           </div>
           <div className="basis-2/3 relative">
-            <div className=" bg-green-600 px-4 py-5 flex justify-between xs:absolute top-0 -translate-y-1/2 left-10 right-10 mx-auto">
+            <Div 
+              animation="translateY"
+              delay={0.8}
+            className=" bg-green-600 px-4 py-5 flex justify-between xs:absolute -top-10 left-10 right-10 mx-auto xs:mb-0 mb-6">
               <div className="flex gap-4 items-center justify-center basis-1/2">
                 <h4 className=" sm:text-5xl text-3xl  font-semibold ">10</h4>
                 <h4 className="sm:text-base text-xs">
@@ -252,7 +290,7 @@ function Offers({ data, testimonials }: IOffer) {
                   types of <br /> courses
                 </h4>
               </div>
-            </div>
+            </Div>
             <img src="/images/p1.jpg" alt="john" className="rounded-lg" />
           </div>
         </div>

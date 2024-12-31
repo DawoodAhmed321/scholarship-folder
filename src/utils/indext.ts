@@ -1,6 +1,6 @@
 import { appDispatch } from "@/redux";
 import { addToast } from "@/redux/slices/toastSlice";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const showToast = (
   message: string,
@@ -37,6 +37,40 @@ const useDebounce = (callback: any, delay: number) => {
 
   return debouncedCallback;
 };
+
+
+export function useInView(options = {}) {
+  const [isInView, setIsInView] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.unobserve(entry.target);
+      }
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6,
+      ...options
+    });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [options]);
+
+  return [ref, isInView] as const;
+}
+
+
 
 export const classSpreader = (className?: string) => {
   if (!className) return "";

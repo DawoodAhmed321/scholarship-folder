@@ -44,13 +44,66 @@ html {
   animation: heading 900ms ease-in-out forwards;
 }
 
-.fade-in > p {
+.intial-state {
   opacity: 0;
-  pointer-events: all;
 }
 
-.fade-in:hover > p {
-  animation: heading 900ms ease-in-out 200ms forwards;
+.animation {
+  animation-name: var(--animation, translateX);
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+  /* Default: no delay, can be overridden with custom property */
+  animation-delay: var(--animation-delay, 0s);
+}
+@media (max-width: 600px) {
+  .animation {
+    animation-delay: 0s;
+  }
+}
+
+@keyframes translateX {
+  0% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes -translateX {
+  0% {
+    opacity: 0;
+    transform: translateX(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes translateY {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes -translateY {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes heading {

@@ -54,8 +54,6 @@ export const Testimonials = ({ testimonials }: ITestimonialProps) => {
           delay: 2500,
           disableOnInteraction: true,
         }}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
