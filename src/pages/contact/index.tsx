@@ -29,7 +29,7 @@ function ContactUs() {
   };
 
   return (
-    <div>
+    <div className="lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6">
       <div className="text-center max-w-[340px] mx-auto hero-heading">
         <h2 className="text-3xl font-semibold">
           <span className="underline underline-offset-4 decoration-blue-400">
@@ -45,7 +45,7 @@ function ContactUs() {
 
       {/* Form */}
 
-      <div className="flex lg:flex-row flex-col sm:my-20 my-10 xs:px-12 px-6">
+      <div className="flex lg:flex-row flex-col sm:my-20 my-10 ">
         <div className="basis-1/2 ">
           <ContactForm />
         </div>
@@ -56,7 +56,7 @@ function ContactUs() {
             libero ut mollitia voluptatibus eligendi tempore voluptatem, iure
             adipisci sequi ullam?
           </p>
-          <div className="grid sm:grid-cols-2 grid-cols-1 gap-6 my-6">
+          <div className="grid xl:grid-cols-2 lg:grid-cols-1 sm:grid-cols-2 grid-cols-1 gap-6 my-6">
             <Link
               href={`
               mailto:${contact.email}
@@ -81,7 +81,6 @@ function ContactUs() {
                 </div>
               </div>
             </Link>
-
             <Link
               href={`
               tel:${contact.mobile}
@@ -167,7 +166,7 @@ function ContactUs() {
       </div>
 
       {/* Common Queries Section */}
-      <div className=" xs:px-12 px-6">
+      <div className=" ">
         <div className="">
           <h2 className="text-3xl font-semibold">
             Got Any Questions? <br />

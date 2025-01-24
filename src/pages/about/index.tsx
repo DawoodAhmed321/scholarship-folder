@@ -159,7 +159,7 @@ function About() {
       {/* Hero Section */}
       <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-0 gap-6 lg:-mt-20">
         {/* Section 1 */}
-        <div className="flex-1 flex flex-col justify-end  md:pl-20 sm:pl-16 xs:pl-12 pl-6 md:pr-0 sm:pr-16 xs:pr-12 pr-6">
+        <div className="flex-1 flex flex-col justify-end lg:pl-32 md:pl-20 sm:pl-16 xs:pl-12 pl-6  md:pr-0 sm:pr-16 xs:pr-12 pr-6">
           <h2 className="lg:text-6xl md:text-5xl text-3xl font-bold text-black hero-heading">
             Welcome to <br /> Scholarship Folder
           </h2>
@@ -197,7 +197,10 @@ function About() {
         </div>
       </div>
       {/* About */}
-      <div className="md:px-20 sm:px-16 xs:px-12 px-6 mt-24" id="about">
+      <div
+        className="lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 mt-24"
+        id="about"
+      >
         <h2 className="text-7xl font-bold">About</h2>
 
         <div className="my-6">
@@ -290,7 +293,7 @@ function About() {
 
       {/* Why Us? */}
       <div
-        className="flex gap-6 md:px-20 sm:px-16 xs:px-12 px-6 mt-24 md:flex-row flex-col-reverse"
+        className="flex gap-6 lg:px-32  md:px-20 sm:px-16 xs:px-12 px-6 mt-24 md:flex-row flex-col-reverse"
         id="why-us"
       >
         <div className="basis-1/2">
@@ -325,7 +328,7 @@ function About() {
 
       {/* Our Services */}
       <div
-        className="flex gap-6 md:px-20 sm:px-16 xs:px-12 px-6 md:mt-24 sm:mt-16 xs:mt-10 mt-8 lg:flex-row-reverse flex-col-reverse"
+        className="flex gap-6 lg:px-32  md:px-20 sm:px-16 xs:px-12 px-6 md:mt-24 sm:mt-16 xs:mt-10 mt-8 lg:flex-row-reverse flex-col-reverse"
         id="our-services"
       >
         <div className="basis-1/2 flex flex-col justify-center ">
@@ -404,7 +407,7 @@ function About() {
 
       {/* Our Team */}
       <div
-        className="flex lg:flex-row flex-col sm:px-16 xs:px-12 px-6 my-24"
+        className="flex lg:flex-row flex-col lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 my-24"
         id="our-team"
       >
         <div className="basis-1/2">
@@ -447,7 +450,7 @@ function About() {
                 </p>
               </div>
 
-              <div className="bg-white rounded-xl shadow-square shadow-black/20 relative overflow-hidden  basis-1/2">
+              <div className="bg-white rounded-xl shadow-square shadow-black/20 relative overflow-hidden  xs:basis-1/2 basis-full">
                 <img
                   className="size-full object-cover"
                   src="/images/p1.jpg"
@@ -464,7 +467,7 @@ function About() {
             </div>
 
             <div className="flex sm:flex-col xs:flex-row flex-col gap-4 sm:col-span-1 xs:col-span-2 ">
-              <div className="bg-white rounded-xl shadow-square shadow-black/20 relative basis-1/3">
+              <div className="bg-white rounded-xl shadow-square shadow-black/20 relative xs:basis-1/3 basis-full overflow-hidden">
                 <img
                   className="size-full object-cover min-h-44"
                   src="/images/p1.jpg"

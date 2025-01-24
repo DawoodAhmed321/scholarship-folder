@@ -17,6 +17,13 @@ const homeSchema = Yup.object().shape({
   mobile: Yup.string().required().min(11).max(11),
   email: Yup.string().required().email(),
   address: Yup.string().required().min(3),
+
+  bachelor: Yup.number().required().min(1),
+  master: Yup.number().required().min(1),
+  phd: Yup.number().required().min(1),
+  internship: Yup.number().required().min(1),
+  postdoc: Yup.number().required().min(1),
+
   start_time: Yup.string()
     .matches(timeFormatRegex, "Start time must be in the format HH:mm")
     .required("Start time is required"),
@@ -62,6 +69,7 @@ function HomePage() {
   const intialRequest = async () => {
     try {
       const resp = await http.get(API_URL.HOME);
+      const countResp = await http.get(API_URL.SCHOLARSHIP_COUNT);
       if (resp.status === 200) {
         setValue("title", resp.data.data.title);
         setValue("facebook", resp.data.data.facebook || "");
@@ -73,7 +81,16 @@ function HomePage() {
         setValue("start_time", resp.data.data.start_time || new Date());
         setValue("end_time", resp.data.data.end_time || new Date());
       }
-    } catch (error) {}
+      if (countResp.status === 200) {
+        setValue("bachelor", countResp.data.data.bachelor);
+        setValue("master", countResp.data.data.master);
+        setValue("phd", countResp.data.data.phd);
+        setValue("internship", countResp.data.data.internship);
+        setValue("postdoc", countResp.data.data.postdoc);
+      }
+    } catch (error) {
+      console.log("error while fetching home data", error);
+    }
   };
 
   const handleUpdateHome = async (value: {
@@ -90,6 +107,7 @@ function HomePage() {
     try {
       const resp = await http.post(API_URL.HOME, {
         ...value,
+
         start_time: convertTimeToDate(value.start_time),
         end_time: convertTimeToDate(value.end_time),
       });
@@ -168,6 +186,49 @@ function HomePage() {
             />
           </div>
         </div>
+        <h1 className="text-xl text-primary my-2 ">Cases Count</h1>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 ">
+          <div>
+            <AppInput
+              type="number"
+              placeholder="Enter Bachelor Counts"
+              {...register("bachelor")}
+              error={errors.bachelor?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              type="number"
+              placeholder="Enter Master Counts"
+              {...register("master")}
+              error={errors.master?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              type="number"
+              placeholder="Enter Phd Counts"
+              {...register("phd")}
+              error={errors.phd?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              type="number"
+              placeholder="Enter Internship Counts"
+              {...register("internship")}
+              error={errors.internship?.message}
+            />
+          </div>
+          <div>
+            <AppInput
+              type="number"
+              placeholder="Enter Postdoc Counts"
+              {...register("postdoc")}
+              error={errors.postdoc?.message}
+            />
+          </div>
+        </div>
         <h1 className="text-xl text-primary my-2 ">Daily Availability Time</h1>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 ">
           <div>
@@ -175,9 +236,6 @@ function HomePage() {
               type="time"
               placeholder="Enter Start Time"
               {...register("start_time")}
-              // onChange={(e) => {
-              //   setValue("start_time", convertTimeToDate(e.target.value));
-              // }}
               error={errors.start_time?.message}
             />
           </div>

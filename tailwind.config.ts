@@ -22,6 +22,7 @@ export default {
       },
       screens: {
         xs: "480px",
+        "0_5xl": "1140px",
       },
       fontFamily: {
         bitter: ["var(--font-bitter)"],

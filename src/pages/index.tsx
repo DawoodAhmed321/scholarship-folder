@@ -34,13 +34,13 @@ function Home({ data }: IHome) {
   return (
     <div className={` bg-secondary `}>
       {/* Hero Section */}
-      <div className="flex lg:flex-row flex-col items-center lg:gap-0 gap-4 lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 pb-8">
-        <div className="py-4 xl:max-w-screen-sm max-w-[400px]  flex justify-center ">
+      <div className="flex lg:flex-row flex-col lg:items-center justify-between lg:gap-0 gap-4 lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 pb-8 md:min-h-[560px]">
+        <div className="py-4 xl:max-w-screen-sm lg:max-w-[400px]  flex justify-center ">
           <h2 className="hero-heading md:text-6xl xs:text-4xl text-3xl leading-snug font-bitter font-medium  ">
             {data.title}
           </h2>
         </div>
-        <div className="flex-1">
+        <div className="lg:max-w-screen-xs lg:flex-none flex-1">
           <h2
             className=" 
           text-xl font-semibold text-primary text-end my-2

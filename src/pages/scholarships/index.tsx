@@ -6,6 +6,7 @@ import { TPagination, TScholarship } from "@/configs/interface";
 import http, { API_URL } from "@/services/http.services";
 import Link from "next/link";
 import React from "react";
+import SlotCounter from "react-slot-counter";
 
 export const getServerSideProps = async () => {
   const resp = await http.get(API_URL.SCHOLARSHIPS, {
@@ -15,9 +16,35 @@ export const getServerSideProps = async () => {
     },
   });
 
+  const countResp = await http
+    .get(API_URL.SCHOLARSHIP_COUNT)
+    .catch((e) => console.log("error", e));
+
+  if (countResp && countResp.status == 200) {
+    return {
+      props: {
+        scholarship: resp.data,
+        count: {
+          bachelor: countResp.data.data.bachelor,
+          master: countResp.data.data.master,
+          phd: countResp.data.data.phd,
+          internship: countResp.data.data.internship,
+          postdoc: countResp.data.data.postdoc,
+        },
+      },
+    };
+  }
+
   return {
     props: {
       scholarship: resp.data,
+      count: {
+        bachelor: 100,
+        master: 87,
+        phd: 45,
+        internship: 213,
+        postdoc: 32,
+      },
     },
   };
 };
@@ -27,9 +54,16 @@ interface IScholarship {
     data: TScholarship[];
     pagination: TPagination;
   };
+  count: {
+    bachelor: number;
+    master: number;
+    phd: number;
+    internship: number;
+    postdoc: number;
+  };
 }
 
-function Scholarship({ scholarship }: IScholarship) {
+function Scholarship({ scholarship, count }: IScholarship) {
   const [data, setData] = React.useState(scholarship);
   const [load, setLoad] = React.useState(false);
 
@@ -54,8 +88,47 @@ function Scholarship({ scholarship }: IScholarship) {
       setLoad(false);
     }
   };
+
+  const getCountTitle = (type: string) => {
+    switch (type) {
+      case "bachelor":
+        return "Bachelor";
+      case "master":
+        return "Master";
+      case "phd":
+        return "Phd";
+      case "internship":
+        return "Internship";
+      case "postdoc":
+        return "Postdoc";
+      default:
+        return "Bachelor";
+    }
+  };
+
   return (
     <div className="md:px-32 sm:px-16 xs:px-12 px-6 ">
+      {/* Slot Counter */}
+      <div className="my-10 ">
+        <h1 className="text-4xl font-medium">Our Successful Cases</h1>
+        <div className="my-5 w-fit flex gap-x-10 sm:gap-y-10 gap-y-4 bg-gradient-to-tr from-primary/90 via-primary to-purple-500/60 sm:flex-nowrap flex-wrap xs:justify-start justify-center rounded-md text-white px-6 py-2">
+          {Object.keys(count).map((key, i) => (
+            <div className="flex items-center flex-col" key={i}>
+              <SlotCounter
+                //@ts-ignore
+                value={count[key]}
+                debounceDelay={i * 1.5}
+                valueClassName="sm:text-5xl text-3xl font-extralight "
+                numberClassName="sm:text-5xl text-3xl font-extralight "
+                duration={2}
+                speed={0.8}
+              />
+              <p className="text-sm font-light">{getCountTitle(key)}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Heding */}
       <div className="my-10 hero-heading">
         <h1 className="md:text-7xl xs:text-5xl text-4xl font-medium">

@@ -15,6 +15,7 @@ export const API_URL = {
   EXPORT_REPORT: "report",
 
   SCHOLARSHIPS: "scholarships",
+  SCHOLARSHIP_COUNT: "scholarships/cases",
   OFFERS: "offers",
   TESTIMONIALS: "testimonials",
   DELETE: (
@@ -73,9 +74,9 @@ http.interceptors.response.use(
         console.log("An error occurred", error.response);
         showToast(error.response.data.message, "error");
         break;
-      default:
-        showToast("Something went wrong", "error");
-        break;
+      // default:
+      //   showToast("Something went wrong", "error");
+      //   break;
     }
 
     return Promise.reject(error);

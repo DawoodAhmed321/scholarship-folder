@@ -13,14 +13,19 @@ export default function AppHeader() {
   return (
     <div>
       <nav className="flex justify-between md:items-start items-center lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 py-4 bg-secondary ">
-        <img
-          src="/images/logo.svg"
-          alt="logo"
-          className="lg:size-28 md:size-16 xs:size-12 size-10 lg:mt-3 object-contain rounded-full border border-black/20"
-        />
+        <Link
+          href="/"
+          className="lg:size-28 md:size-16 xs:size-12 size-10 lg:mt-3 overflow-hidden rounded-full border border-black/20"
+        >
+          <img
+            src="/images/logo.svg"
+            alt="logo"
+            className=" size-full object-cover scale-125"
+          />
+        </Link>
 
         <div>
-          <div className="md:flex hidden items-center gap-8">
+          <div className="lg:flex hidden items-center gap-8">
             {NAVBAR_MENU.map((menu) => (
               <Link key={menu.id.toString()} href={menu.link}>
                 <h1
@@ -38,11 +43,11 @@ export default function AppHeader() {
 
           {/* nav btn */}
           <HiBars3BottomRight
-            className="text-3xl object-contain cursor-pointer block md:hidden "
+            className="text-3xl object-contain cursor-pointer block lg:hidden "
             onClick={() => setIsOpen(true)}
           />
         </div>
-        <div className="md:block hidden"></div>
+        <div className="xl:block hidden lg:size-28 md:size-16"></div>
       </nav>
 
       {/* Drawer */}
@@ -50,14 +55,14 @@ export default function AppHeader() {
       <div>
         <div
           onClick={() => setIsOpen(false)}
-          className={`fixed top-0 right-0 left-0 bottom-0 bg-black  z-[51] md:hidden transition-all duration-500 ease-in-out ${
+          className={`fixed top-0 right-0 left-0 bottom-0 bg-black  z-[51] lg:hidden transition-all duration-500 ease-in-out ${
             isOpen
               ? "opacity-35 pointer-events-auto "
               : "opacity-0 pointer-events-none "
           } `}
         ></div>
         <div
-          className={`md:hidden fixed z-[52] top-0 left-0 w-3/4 h-screen bg-secondary overflow-y-scroll transition-all duration-500 ease-in-out ${
+          className={`lg:hidden fixed z-[52] top-0 left-0 w-3/4 h-screen bg-secondary overflow-y-scroll transition-all duration-500 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

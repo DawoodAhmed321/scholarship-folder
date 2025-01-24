@@ -10,67 +10,326 @@ import {
   IoSchoolOutline,
 } from "react-icons/io5";
 import { LuAward, LuTarget } from "react-icons/lu";
+import { FaArrowTurnUp } from "react-icons/fa6";
+import SlotCounter from "react-slot-counter";
+import { AppInput } from "@/components/app-inputs/AppInput";
+import { Controller, useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Div from "@/components/animated-container/Div";
+const counts = [
+  {
+    id: 1,
+    title: "CV",
+    count: 54,
+  },
+  {
+    id: 2,
+    title: "Recommendation Letter",
+    count: 23,
+  },
+  {
+    id: 3,
+    title: "English Proficiency",
+    count: 32,
+  },
+  {
+    id: 4,
+    title: "Cover Letter",
+    count: 81,
+  },
+  {
+    id: 5,
+    title: "Others",
+    count: 92,
+  },
+];
+
+const DOC_TYPES = [
+  {
+    id: 1,
+    title: "CV",
+  },
+  {
+    id: 2,
+    title: "SOP (Statement of Purpose)",
+  },
+  {
+    id: 3,
+    title: "Motivation Letter",
+  },
+  {
+    id: 4,
+    title: "Cover Letter",
+  },
+  {
+    id: 5,
+    title: "English Proficiency",
+  },
+  {
+    id: 6,
+    title: "Recommendation Letter",
+  },
+];
+
+const assistanceSchema = Yup.object().shape({
+  degree: Yup.string().required().min(3),
+  country: Yup.string().required().min(3),
+  program: Yup.string().required().min(3),
+  targetedScholarship: Yup.string()
+    .label("Targeted Scholarship")
+    .required()
+    .min(3),
+  file: Yup.mixed<File>()
+    .required("Document is required")
+    .test(
+      "PDF file of 4MB or less",
+      "File can only be a PDF file of 4MB or less",
+      (value) => {
+        if (!value) return true;
+        if (value.size > 4 * 1024 * 1024) return false;
+        if (value.type !== "application/pdf") return false;
+        return true;
+      }
+    ),
+});
 
 function Assistance() {
-  const [filters, setFilters] = useState({
-    format: [],
-    purpose: [],
-    region: [],
+  const [selectedDoc, setSelectedDoc] = useState(DOC_TYPES[0]);
+  const [hoveredDoc, setHoveredDoc] = useState<null | number>(null);
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(assistanceSchema),
   });
 
-  const handleFilterChange = (value: any) => {
-    setFilters(value);
-  };
-
-  const handleSubmit = (text: string) => {
-    console.log("Analyzing resume with filters:", filters);
-    console.log("Resume text:", text);
-  };
-
   return (
-    <div className="min-h-screen  p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Academic Resume Enhancer
-          </h1>
-          <p className="text-lg text-gray-600">
-            Optimize your resume for international university applications
+    <div className="lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6">
+      {/* Hero Section */}
+
+      <div className="border-2 border-black/50 py-12 lg:px-12 md:px-10 sm:px-8 px-6 rounded-[60px]  ">
+        <div className="flex xl:flex-row flex-col xl:gap-10 gap-5 items-center justify-between z-10 relative">
+          <Div animation="translateX">
+            <h1 className="xl:text-[112px] lg:text-[84px] md:text-7xl sm:text-5xl text-4xl  font-bold leading-none ">
+              ASSISTANCE
+            </h1>
+          </Div>
+          <Div animation="-translateX" className="w-full flex">
+            <div className="flex-1 border-primary border-4 rounded-full md:py-6 py-3 xl:max-w-[auto] md:max-w-96  mx-auto flex items-center justify-center ">
+              <p className="text-black font-semibold text-center sm:text-xl text-lg cursor-pointer">
+                choose a document
+              </p>
+            </div>
+          </Div>
+        </div>
+
+        <div className="flex items-center md:gap-10 sm:gap-8 gap-5 z-0 xl:-mt-6 mt-4 ">
+          <img
+            src="/images/p1.jpg"
+            alt="people"
+            className="xl:size-72 lg:size-60 md:size-48 sm:size-40 xs:size-36 size-16 rounded-full  object-cover"
+          />
+          <div className="flex-1 flex xl:gap-4 gap-2 items-end ">
+            <h2 className=" xl:text-7xl lg:text-5xl md:text-4xl sm:text-3xl xs:text-2xl text-lg leading-none font-bold">
+              MAKE IT BETTER AND PROFESSIONAL
+            </h2>
+            <FaArrowTurnUp className="xl:size-20 lg:size-16 size-12 md:block hidden mb-2 text-primary" />
+          </div>
+        </div>
+      </div>
+      {/* Counter */}
+      <div className=" lg:-mt-10 mt-10 z-20 lg:mx-24 md:rounded-full rounded-3xl md:flex md:justify-between md:items-center grid xs:grid-cols-3 grid-cols-2 gap-x-10 sm:gap-y-10 gap-y-4 bg-gradient-to-tr from-primary/90 via-primary to-purple-500  text-white px-10 py-2">
+        {counts.map((item, i) => (
+          <div
+            className={`flex items-center flex-col ${
+              counts.length - 1 == i && "xs:col-span-1 col-span-2 self-center"
+            }`}
+            key={i}
+          >
+            <SlotCounter
+              value={item.count}
+              debounceDelay={i * 1.5}
+              valueClassName="xl::text-5xl md:text-3xl sm:text-2xl text-xl font-extralight "
+              numberClassName="xl:text-5xl md:text-3xl sm:text-2xl text-xl font-extralight "
+              duration={2}
+              speed={0.8}
+            />
+            <p className="sm:text-sm text-xs font-light text-center">
+              {item.title}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Types of Document */}
+      <div className="py-16">
+        <div className="lg:flex flex-col  items-center gap-4 ">
+          <h2 className="lg:text-4xl md:text-3xl sm:text-2xl text-xl font-semibold ">
+            Six Types
+          </h2>
+          <div className="lg:block hidden flex-1 bg-black/90 h-1 "></div>
+          <p className="lg:text-3xl md:text-2xl sm:text-xl text-lg font-medium ">
+            Lorem ipsum dolor sit amet consectetur
           </p>
         </div>
+        <div className="mt-8 lg:flex grid md:grid-cols-2 grid-cols-1 lg:items-center lg:justify-end lg:overflow-hidden">
+          {DOC_TYPES.map((item, i) => (
+            <div
+              onMouseEnter={() => setHoveredDoc(item.id)}
+              onMouseLeave={() => setHoveredDoc(null)}
+              key={i}
+              className={`lg:rounded-s-[80px] lg:rounded-none rounded-full bg-white border-2 border-black/50 flex-1 xl:h-40 sm:h-32 h-24 xl:px-16 px-7 flex items-center lg:justify-center justify-start gap-4 hover:text-white text-black hover:bg-primary  ${
+                hoveredDoc === item.id && item.id != 1
+                  ? "lg:-ml-40 !rounded-[80px]"
+                  : hoveredDoc === item.id && item.id == 1
+                  ? "!rounded-[80px]"
+                  : hoveredDoc && hoveredDoc - 1 == item.id && item.id != 1
+                  ? "lg:-ml-20 0_5xl:rounded-none !rounded-[80px]"
+                  : hoveredDoc && hoveredDoc + 1 == item.id
+                  ? "lg:ml-0"
+                  : item.id != 1
+                  ? "lg:-ml-20 "
+                  : ""
+              } transition-all duration-300 ease-in-out`}
+            >
+              <p className="text-4xl font-bold lg:min-w-[auto] min-w-20 lg:text-start text-end">
+                {item.id}
+              </p>
+              <p className="text-xs  ">{item.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-        {/* Filters */}
-        <div className="mb-8 bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">
-            Select Filters For Resume
-          </h2>
-          <ResumeFilters onFilterChange={handleFilterChange} />
+      {/* Select Type of Document */}
+      <div className="py-16">
+        <h2 className="text-center text-4xl font-semibold ">
+          SELECT TYPE OF DOCUMENT
+        </h2>
+        <div className="0_5xl:flex grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1  items-center flex-wrap my-8">
+          {DOC_TYPES.map((item, i) => (
+            <div
+              key={item.title}
+              onClick={() => setSelectedDoc(item)}
+              className={`flex-1 lg:min-w-max py-4 px-4 border-2  rounded-full cursor-pointer hover:bg-primary hover:text-white hover:border-black/50 transition-all duration-300 ease-in-out ${
+                selectedDoc.id == item.id
+                  ? "bg-primary text-white border-black/50"
+                  : "bg-white text-black border-primary"
+              } `}
+            >
+              <h3 className="text-sm text-center font-semibold">
+                {item.title}
+              </h3>
+            </div>
+          ))}
         </div>
 
-        {/* AI Features */}
-        <AIFeatures />
+        <div className="border border-black/50 rounded-[30px] py-12 md:px-12 sm:px-8 px-4  bg-white shadow-square shadow-black/40">
+          <h3 className=" text-5xl font-semibold text-center">
+            {selectedDoc.title}
+          </h3>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <ResumeInput onSubmit={handleSubmit} />
-
-          {/* Output Section */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <div className="mb-4">
-              <h2 className="text-lg font-semibold mb-2">
-                Enhanced Academic Resume
-              </h2>
-              <p className="text-sm text-gray-600">
-                Your optimized academic resume will appear here
-              </p>
-            </div>
-            <div className="min-h-[300px] p-2 flex items-center justify-center border-2 border-dashed border-gray-200 rounded-lg">
-              <p className="text-gray-500">
-                Submit your resume to see the enhanced version
-              </p>
-            </div>
+          <div className="flex-1 border-primary border-4 rounded-full md:py-6 py-3 max-w-screen-sm mx-auto flex items-center justify-center cursor-pointer my-8">
+            <p className="text-black font-semibold text-center sm:text-xl text-lg  ">
+              choose filter
+            </p>
           </div>
+
+          <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+              <div className="flex flex-col gap-2">
+                <label>Degree</label>
+                <div className="flex-1">
+                  <AppInput
+                    {...register("degree")}
+                    error={errors.degree?.message}
+                    placeholder="Enter your degree"
+                    containerClass="border border-black/20"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label>Country</label>
+                <div className="flex-1">
+                  <AppInput
+                    {...register("country")}
+                    error={errors.country?.message}
+                    placeholder="Enter your country"
+                    containerClass="border border-black/20"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label>Program</label>
+                <div className="flex-1">
+                  <AppInput
+                    {...register("program")}
+                    error={errors.program?.message}
+                    placeholder="Enter your program"
+                    containerClass="border border-black/20"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label>Targeted Scholarship</label>
+                <div className="flex-1">
+                  <AppInput
+                    {...register("targetedScholarship")}
+                    error={errors.targetedScholarship?.message}
+                    placeholder="Enter your targeted scholarship"
+                    containerClass="border border-black/20"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex sm:flex-row flex-col justify-between sm:items-center">
+              <div className="my-4">
+                <Controller
+                  name="file"
+                  control={control}
+                  render={({ field }) => (
+                    <div>
+                      <input
+                        type="file"
+                        id="file"
+                        accept="application/pdf"
+                        className="hidden"
+                        onChange={(e) => {
+                          if (e.target.files) {
+                            field.onChange(e.target.files[0]);
+                          }
+                        }}
+                      />
+                      <label
+                        htmlFor="file"
+                        className="cursor-pointer flex items-center gap-2 border border-black/20 px-2 py-1 rounded-md sm:max-w-max sm:w-fit"
+                      >
+                        <span className="text-gray-400 line-clamp-1">
+                          {field.value
+                            ? field.value.name.toString().split("\\").pop()
+                            : "Upload your " + selectedDoc.title}
+                        </span>
+                      </label>
+                    </div>
+                  )}
+                />
+                {errors.file && (
+                  <p className="text-red-500 text-[10px]  ml-1">
+                    {errors.file.message}
+                  </p>
+                )}
+              </div>
+              <AppButton
+                title="Upload"
+                className="text-sm text-white font-semibold bg-primary px-6 py-2 sm:w-fit hover:bg-black/80 rounded-md"
+              />
+            </div>
+          </form>
         </div>
       </div>
     </div>
