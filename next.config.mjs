@@ -7,17 +7,37 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    remotePatterns: [
+    // remotePatterns: [
+    //   {
+    //     protocol: "http",
+    //     hostname: "localhost",
+    //     port: "9000",
+    //   },
+    //   {
+    //     protocol: "https",
+    //     hostname: "admin.scholarshipfolder.cloud",
+    //   },
+
+    //   {
+    //     protocol: "http",
+    //     hostname: "admin.scholarshipfolder.cloud",
+    //   },
+
+    //   {
+    //     protocol: "http",
+    //     hostname: "scholarshipfolder.cloud",
+    //   },
+    // ],
+    remotePatterns : [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "9000",
+        protocol: 'https',
+        hostname: '**', // allow all hostnames
       },
       {
-        protocol: "https",
-        hostname: "sub.scholarshipfolder.com",
+        protocol: 'http',
+        hostname: '**', // allow all hostnames
       },
-    ],
+    ]
   },
 };
 
