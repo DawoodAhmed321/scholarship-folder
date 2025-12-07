@@ -263,19 +263,25 @@ export const SKILLS_PROCESS = [
   {
     id: 1,
     name: "Leadership",
-    description: "Fully committed to the success company",
+    description: "Your mission and values",
     img: "/images/icons/badge.svg",
   },
   {
     id: 2,
     name: "Responsibility",
-    description: "Employees will always be my top priority",
+    description: "Focus on ethical guidance",
     img: "/images/icons/brain.svg",
   },
   {
     id: 3,
-    name: "Flexibility",
-    description: "The ability to switch is an important skill",
+    name: "Self-Confidence",
+    description: "Student-first philosophy",
     img: "/images/icons/bolt.svg",
+  },
+  {
+    id: 4,
+    name: "Transparency",
+    description: "Transparency (no false guarantees, etc.)",
+    img: "/images/icons/badge.svg",
   },
 ];

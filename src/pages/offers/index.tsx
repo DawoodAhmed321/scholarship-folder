@@ -188,7 +188,7 @@ function Offers({ data, testimonials }: IOffer) {
       </div>
 
       <h2 className="xs:text-3xl text-center text-xl mt-24 mb-16">
-        Our offers are designed to help you grow your skills and knowledge.
+        “How to apply” / “What we need from you”
       </h2>
       {offers.data.length > 0 ? (
         <>
@@ -219,7 +219,8 @@ function Offers({ data, testimonials }: IOffer) {
           <div className="basis-[45%]">
             <Div animation="translateX">
               <h3 className="lg:text-5xl text-3xl">
-                Get the skills you need for a job that is in demand.
+                Our experience, skills, and credibility, no. of countries, no.
+                of degree programs
               </h3>
             </Div>
           </div>
@@ -238,7 +239,8 @@ function Offers({ data, testimonials }: IOffer) {
             <Div
               animation="translateX"
               delay={0.5}
-              className="flex lg:flex-col flex-row flex-wrap lg:justify-start justify-between"
+              // className="flex lg:flex-col flex-row flex-wrap lg:justify-start justify-between"
+              className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1"
             >
               {SKILLS_PROCESS.map((item, index) => (
                 <div className="flex gap-8 relative py-5" key={index}>
@@ -256,7 +258,7 @@ function Offers({ data, testimonials }: IOffer) {
                     </p>
                   </div>
                   {index != SKILLS_PROCESS.length - 1 && (
-                    <div className="lg:block hidden  absolute left-8 top-24 bottom-0  border-l border-dashed border-black"></div>
+                    <div className="lg:block md:hidden block  absolute left-8 top-24 bottom-0  border-l border-dashed border-black"></div>
                   )}
                 </div>
               ))}
@@ -322,7 +324,7 @@ const OfferCard = ({ offer }: { offer: TOffer }) => {
         <img
           src={offer.image.url}
           alt={offer.title}
-          className="w-full h-80 object-cover "
+          className="w-full h-96 object-cover "
         />
         <div className="absolute top-80 opacity-0 bottom-0 left-0 right-0 bg-black/50 z-30 rounded-xl transition-all duration-1000 ease-in-out">
           <p className="text-white text-sm px-4 py-2">{offer.description}</p>
