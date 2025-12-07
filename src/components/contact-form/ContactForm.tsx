@@ -99,7 +99,7 @@ export default function ContactForm() {
       className="bg-white p-6 rounded-md shadow-md"
       onSubmit={handleSubmit(submitForm)}
     >
-      <h3 className="text-4xl font-semibold mb-6">Get In Touch With Us</h3>
+      <h3 className="text-3xl font-semibold mb-6">Get In Touch With Us</h3>
       <div className="flex gap-4 sm:flex-row flex-col ">
         <div className=" basis-1/2">
           <AppInput

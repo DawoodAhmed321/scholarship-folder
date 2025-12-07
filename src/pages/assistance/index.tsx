@@ -49,26 +49,36 @@ const DOC_TYPES = [
   {
     id: 1,
     title: "CV",
+    description: "Your academic and professional history (1–2 pages).",
   },
   {
     id: 2,
     title: "SOP (Statement of Purpose)",
+    description:
+      "Explain your background, goals, and why you’re applying (usually 500–1,000 words).",
   },
   {
     id: 3,
     title: "Motivation Letter",
+    description:
+      "Explain why you want to apply for a scholarship (usually 500–1,000 words).",
   },
   {
     id: 4,
     title: "Cover Letter",
+    description:
+      "Explain why you want to apply for a scholarship (usually 500–1,000 words).",
   },
   {
     id: 5,
     title: "English Proficiency",
+    description: "Your English proficiency level.",
   },
   {
     id: 6,
     title: "Recommendation Letter",
+    description:
+      "Explain why you want to apply for a scholarship (usually 500–1,000 words).",
   },
 ];
 
@@ -80,6 +90,10 @@ const assistanceSchema = Yup.object().shape({
     .label("Targeted Scholarship")
     .required()
     .min(3),
+  type: Yup.string()
+    .required()
+    .default(DOC_TYPES[0].title)
+    .oneOf(DOC_TYPES.map((doc) => doc.title)),
   file: Yup.mixed<File>()
     .required("Document is required")
     .test(
@@ -95,15 +109,23 @@ const assistanceSchema = Yup.object().shape({
 });
 
 function Assistance() {
-  const [selectedDoc, setSelectedDoc] = useState(DOC_TYPES[0]);
   const [hoveredDoc, setHoveredDoc] = useState<null | number>(null);
 
   const {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      degree: "",
+      country: "",
+      program: "",
+      targetedScholarship: "",
+      type: DOC_TYPES[0].title,
+      file: undefined,
+    },
     resolver: yupResolver(assistanceSchema),
   });
 
@@ -118,7 +140,15 @@ function Assistance() {
               ASSISTANCE
             </h1>
           </Div>
-          <Div animation="-translateX" className="w-full flex">
+          <Div
+            animation="-translateX"
+            className="w-full flex"
+            onClick={() => {
+              document.getElementById("file")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+          >
             <div className="flex-1 border-primary border-4 rounded-full md:py-6 py-3 xl:max-w-[auto] md:max-w-96  mx-auto flex items-center justify-center ">
               <p className="text-black font-semibold text-center sm:text-xl text-lg cursor-pointer">
                 choose a document
@@ -182,7 +212,7 @@ function Assistance() {
               onMouseEnter={() => setHoveredDoc(item.id)}
               onMouseLeave={() => setHoveredDoc(null)}
               key={i}
-              className={`lg:rounded-s-[80px] lg:rounded-none rounded-full bg-white border-2 border-black/50 flex-1 xl:h-40 sm:h-32 h-24 xl:px-16 px-7 flex items-center lg:justify-center justify-start gap-4 hover:text-white text-black hover:bg-primary  ${
+              className={`lg:rounded-s-[80px] lg:rounded-none rounded-full bg-white border-2 border-black/50 flex-1 xl:h-40 sm:h-32 h-24 xl:px-16 px-7 flex flex-col justify-center hover:text-white text-black hover:bg-primary  ${
                 hoveredDoc === item.id && item.id != 1
                   ? "lg:-ml-40 !rounded-[80px]"
                   : hoveredDoc === item.id && item.id == 1
@@ -196,46 +226,29 @@ function Assistance() {
                   : ""
               } transition-all duration-300 ease-in-out`}
             >
-              <p className="text-4xl font-bold lg:min-w-[auto] min-w-20 lg:text-start text-end">
-                {item.id}
-              </p>
-              <p className="text-xs  ">{item.title}</p>
+              <div className="flex items-center lg:justify-center justify-start gap-4">
+                <p className="text-4xl font-bold lg:min-w-[auto] min-w-20 lg:text-start text-end">
+                  {item.id}
+                </p>
+                <p className="text-xs  ">{item.title}</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Select Type of Document */}
-      <div className="py-16">
-        <h2 className="text-center text-4xl font-semibold ">
-          SELECT TYPE OF DOCUMENT
-        </h2>
-        <div className="0_5xl:flex grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1  items-center flex-wrap my-8">
-          {DOC_TYPES.map((item, i) => (
-            <div
-              key={item.title}
-              onClick={() => setSelectedDoc(item)}
-              className={`flex-1 lg:min-w-max py-4 px-4 border-2  rounded-full cursor-pointer hover:bg-primary hover:text-white hover:border-black/50 transition-all duration-300 ease-in-out ${
-                selectedDoc.id == item.id
-                  ? "bg-primary text-white border-black/50"
-                  : "bg-white text-black border-primary"
-              } `}
-            >
-              <h3 className="text-sm text-center font-semibold">
-                {item.title}
-              </h3>
-            </div>
-          ))}
-        </div>
-
+      <div className="py-16" id="file">
         <div className="border border-black/50 rounded-[30px] py-12 md:px-12 sm:px-8 px-4  bg-white shadow-square shadow-black/40">
-          <h3 className=" text-5xl font-semibold text-center">
-            {selectedDoc.title}
-          </h3>
-
-          <div className="flex-1 border-primary border-4 rounded-full md:py-6 py-3 max-w-screen-sm mx-auto flex items-center justify-center cursor-pointer my-8">
-            <p className="text-black font-semibold text-center sm:text-xl text-lg  ">
-              choose filter
+          <div className="mb-6">
+            <h3 className=" text-5xl font-semibold text-center ">
+              {watch("type")}
+            </h3>
+            <p className="text-2xl text-center">
+              {
+                DOC_TYPES.find((item) => item.title == watch("type"))
+                  ?.description
+              }
             </p>
           </div>
 
@@ -285,6 +298,28 @@ function Assistance() {
                   />
                 </div>
               </div>
+              <div className="flex flex-col gap-2">
+                <div className="basis-1/2">
+                  <Controller
+                    name="type"
+                    control={control}
+                    render={({ field }) => (
+                      <select
+                        {...field}
+                        className="p-2 rounded-md border border-black/20 w-full "
+                      >
+                        {/* <option value="Inquiry">Inquiry</option>
+                        <option value="JOIN TEAM">JOIN TEAM</option> */}
+                        {DOC_TYPES.map((item) => (
+                          <option key={item.id} value={item.title}>
+                            {item.title}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="flex sm:flex-row flex-col justify-between sm:items-center">
@@ -312,7 +347,7 @@ function Assistance() {
                         <span className="text-gray-400 line-clamp-1">
                           {field.value
                             ? field.value.name.toString().split("\\").pop()
-                            : "Upload your " + selectedDoc.title}
+                            : "Upload your " + watch("type")}
                         </span>
                       </label>
                     </div>
