@@ -50,7 +50,7 @@ function ContactUs() {
           <ContactForm />
         </div>
         <div className="basis-1/2 lg:px-6 px-0 py-6">
-          <h3 className="text-4xl font-bold mb-6">Contact Details</h3>
+          <h3 className="text-3xl font-semibold mb-6">Contact Details</h3>
           <p className="text-sm text-black/70">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur
             libero ut mollitia voluptatibus eligendi tempore voluptatem, iure
@@ -103,27 +103,29 @@ function ContactUs() {
                 </div>
               </div>
             </Link>
-            <div className="flex">
-              <div
-                className="flex-1 flex items-center gap-4 border border-black/20 rounded-md p-3
+            <Link target="_blank" href="https://zoom.us/join">
+              <div className="flex">
+                <div
+                  className="flex-1 flex items-center gap-4 border border-black/20 rounded-md p-3
                   [&:hover>div>svg]:text-black [&:hover>div:nth-child(2)>h3]:text-blue-400
                   hover:bg-black [&:hover>div:nth-child(2)>p]:text-white
                   [&:hover>div:nth-child(1)]:bg-white transition-colors duration-500 ease-in-out
                 "
-              >
-                <div className="bg-black rounded-md p-4">
-                  <IoIosClock className="text-white text-2xl" />
-                </div>
-                <div className="flex-grow">
-                  <h3 className="text-xl font-semibold break-all">
-                    Avaialability
-                  </h3>
-                  <p className="text-sm text-black/70 ">
-                    Daily {contact.start_time} to {contact.end_time}
-                  </p>
+                >
+                  <div className="bg-black rounded-md p-4">
+                    <IoIosClock className="text-white text-2xl" />
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-semibold break-all">
+                      Avaialability
+                    </h3>
+                    <p className="text-sm text-black/70 ">
+                      Daily {contact.start_time} to {contact.end_time}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
             <Link
               href={`
               https://www.google.com/maps/place/${contact.address}
@@ -148,17 +150,17 @@ function ContactUs() {
             </Link>
           </div>
 
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold">Social Media :</h3>
+          <div className="flex sm:flex-row flex-col sm:items-center justify-between sm:gap-0 gap-2">
+            <h3 className="text-3xl font-semibold">Get in touch with us</h3>
             <div className="flex items-center gap-3">
               <Link href={contact.facebook} target="_blank">
-                <MdFacebook className="text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
+                <MdFacebook className="text-4xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
               </Link>
               <Link href={contact.facebook} target="_blank">
-                <IoLogoInstagram className="text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
+                <IoLogoInstagram className="text-4xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
               </Link>
               <Link href={contact.facebook} target="_blank">
-                <RiTwitterXFill className="text-2xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
+                <RiTwitterXFill className="text-4xl text-black/70 hover:text-blue-400 transition-colors duration-300 ease-in-out" />
               </Link>
             </div>
           </div>

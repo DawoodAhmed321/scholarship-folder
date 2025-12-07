@@ -14,7 +14,7 @@ const homeSchema = Yup.object().shape({
   facebook: Yup.string().required().min(3),
   twitter: Yup.string().required().min(3),
   instagram: Yup.string().required().min(3),
-  mobile: Yup.string().required().min(11).max(11),
+  mobile: Yup.string().required().min(11),
   email: Yup.string().required().email(),
   address: Yup.string().required().min(3),
 
