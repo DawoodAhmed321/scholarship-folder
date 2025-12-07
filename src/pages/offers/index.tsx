@@ -83,27 +83,24 @@ function Offers({ data, testimonials }: IOffer) {
       {/* Hero Section */}
 
       <div className="flex lg:flex-row flex-col gap-4 relative">
-        <Div
-          animation="translateX"
-          delay={0.7}
-        >
-        <div className="xs:min-w-80">
-          <h1 className=" lg:text-7xl md:text-5xl xs:text-4xl text-3xl font-bold text-primary mt-24">
-            Watch.
-            <br />
-            Learn.
-            <br />
-            Grow.
-          </h1>
-        </div>
+        <Div animation="translateX" delay={0.7}>
+          <div className="xs:min-w-80">
+            <h1 className=" lg:text-7xl md:text-5xl xs:text-4xl text-3xl font-bold text-primary mt-24">
+              Watch.
+              <br />
+              Learn.
+              <br />
+              Grow.
+            </h1>
+          </div>
         </Div>
-       
+
         <div className="flex flex-1 lg:flex-nowrap flex-wrap gap-y-6 ">
           {OFFERS_SKILLS.map((item, index) => (
-             <Div
-             animation="-translateX"
-             delay={index*0.5}
-             key={index}
+            <Div
+              animation="-translateX"
+              delay={index * 0.5}
+              key={index}
               className={` transition-all duration-500 ease-in-out cursor-pointer
                md:h-[590px] h-96 overflow-hidden rounded-xl shadow-square shadow-black/10
                 relative md:mx-3 ${
@@ -159,7 +156,7 @@ function Offers({ data, testimonials }: IOffer) {
             </Div>
           ))}
         </div>
-        <Div
+        {/* <Div
         animation="-translateY"
         delay={1.2}
          className="lg:absolute right-0 left-0 bottom-20 "
@@ -187,9 +184,8 @@ function Offers({ data, testimonials }: IOffer) {
             Subscribe
           </button>
         </form>
-        </Div>
+        </Div> */}
       </div>
-
 
       <h2 className="xs:text-3xl text-center text-xl mt-24 mb-16">
         Our offers are designed to help you grow your skills and knowledge.
@@ -198,11 +194,8 @@ function Offers({ data, testimonials }: IOffer) {
         <>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-6">
             {offers.data.map((offer, index) => (
-              <Div
-                key={index}
-                animation="-translateY"
-              >
-                <OfferCard  offer={offer} />
+              <Div key={index} animation="-translateY">
+                <OfferCard offer={offer} />
               </Div>
             ))}
           </div>
@@ -224,22 +217,18 @@ function Offers({ data, testimonials }: IOffer) {
       <div>
         <div className="flex md:flex-row flex-col lg:gap-20 md:gap-12 gap-8 mt-28 mb-16">
           <div className="basis-[45%]">
-            <Div
-              animation="translateX"
-            >
-            <h3 className="lg:text-5xl text-3xl">
-              Get the skills you need for a job that is in demand.
-            </h3>
+            <Div animation="translateX">
+              <h3 className="lg:text-5xl text-3xl">
+                Get the skills you need for a job that is in demand.
+              </h3>
             </Div>
           </div>
           <div className="basis-[55%] relative">
-            <Div
-              animation="-translateX"
-            >
-            <p className=" lg:text-xl text-base ">
-              The modern labor market dictates its own terms. Today, to be a
-              competitive specialist requires more than professional skills.
-            </p>
+            <Div animation="-translateX">
+              <p className=" lg:text-xl text-base ">
+                The modern labor market dictates its own terms. Today, to be a
+                competitive specialist requires more than professional skills.
+              </p>
             </Div>
           </div>
         </div>
@@ -251,33 +240,34 @@ function Offers({ data, testimonials }: IOffer) {
               delay={0.5}
               className="flex lg:flex-col flex-row flex-wrap lg:justify-start justify-between"
             >
-            {SKILLS_PROCESS.map((item, index) => (
-              <div className="flex gap-8 relative py-5" key={index} >
-                <div>
-                  <img
-                    src={item.img}
-                    alt=""
-                    className="size-16 rounded-full bg-white p-4 object-contain"
-                  />
+              {SKILLS_PROCESS.map((item, index) => (
+                <div className="flex gap-8 relative py-5" key={index}>
+                  <div>
+                    <img
+                      src={item.img}
+                      alt=""
+                      className="size-16 rounded-full bg-white p-4 object-contain"
+                    />
+                  </div>
+                  <div className="flex-1 ">
+                    <p className="xs:text-xl text-base pb-4">{item.name}</p>
+                    <p className="xs:text-base text-xs pb-2">
+                      {item.description}
+                    </p>
+                  </div>
+                  {index != SKILLS_PROCESS.length - 1 && (
+                    <div className="lg:block hidden  absolute left-8 top-24 bottom-0  border-l border-dashed border-black"></div>
+                  )}
                 </div>
-                <div className="flex-1 ">
-                  <p className="xs:text-xl text-base pb-4">{item.name}</p>
-                  <p className="xs:text-base text-xs pb-2">
-                    {item.description}
-                  </p>
-                </div>
-                {index != SKILLS_PROCESS.length - 1 && (
-                  <div className="lg:block hidden  absolute left-8 top-24 bottom-0  border-l border-dashed border-black"></div>
-                )}
-              </div>
-            ))}
+              ))}
             </Div>
           </div>
           <div className="basis-2/3 relative">
-            <Div 
+            <Div
               animation="translateY"
               delay={0.8}
-            className=" bg-green-600 px-4 py-5 flex justify-between xs:absolute -top-10 left-10 right-10 mx-auto xs:mb-0 mb-6">
+              className=" bg-green-600 px-4 py-5 flex justify-between xs:absolute -top-10 left-10 right-10 mx-auto xs:mb-0 mb-6"
+            >
               <div className="flex gap-4 items-center justify-center basis-1/2">
                 <h4 className=" sm:text-5xl text-3xl  font-semibold ">10</h4>
                 <h4 className="sm:text-base text-xs">

@@ -14,14 +14,10 @@ export default function AppHeader() {
     <div>
       <nav className="flex justify-between md:items-start items-center lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 py-4 bg-secondary ">
         <Link
-          href="/"
+          href="#"
           className="lg:size-28 md:size-16 xs:size-12 size-10 lg:mt-3 overflow-hidden rounded-full border border-black/20"
         >
-          <img
-            src="/images/logo.svg"
-            alt="logo"
-            className=" size-full object-cover scale-125"
-          />
+          <img src="/images/logo.png" alt="logo" className=" size-full " />
         </Link>
 
         <div>
