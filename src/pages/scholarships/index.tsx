@@ -110,13 +110,12 @@ function Scholarship({ scholarship, count }: IScholarship) {
     <div className="md:px-32 sm:px-16 xs:px-12 px-6 ">
       {/* Slot Counter */}
       <div className="my-10 ">
-        <h1 className="text-4xl font-medium">Our Successful Cases</h1>
+        <h1 className="text-4xl font-medium">Total scholarship posts</h1>
         <div className="my-5 w-fit flex gap-x-10 sm:gap-y-10 gap-y-4 bg-gradient-to-tr from-primary/90 via-primary to-purple-500/60 sm:flex-nowrap flex-wrap xs:justify-start justify-center rounded-md text-white px-6 py-2">
-          {Object.keys(count).map((key, i) => (
+          {/* {Object.keys(count).map((key, i) => (
             <div className="flex items-center flex-col" key={i}>
               <SlotCounter
-                //@ts-ignore
-                value={count[key]}
+                value={count[key as keyof typeof count]}
                 debounceDelay={i * 1.5}
                 valueClassName="sm:text-5xl text-3xl font-extralight "
                 numberClassName="sm:text-5xl text-3xl font-extralight "
@@ -125,7 +124,15 @@ function Scholarship({ scholarship, count }: IScholarship) {
               />
               <p className="text-sm font-light">{getCountTitle(key)}</p>
             </div>
-          ))}
+          ))} */}
+          <SlotCounter
+            value={scholarship.data.length}
+            debounceDelay={1.5}
+            valueClassName="sm:text-5xl text-3xl font-extralight "
+            numberClassName="sm:text-5xl text-3xl font-extralight font-poppins font-semibold "
+            duration={2}
+            speed={0.8}
+          />
         </div>
       </div>
 

@@ -26,6 +26,7 @@ export default {
       },
       fontFamily: {
         bitter: ["var(--font-bitter)"],
+        poppins: ["var(--font-poppins)"],
       },
     },
   },
