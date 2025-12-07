@@ -26,7 +26,7 @@ function About() {
             href={"/"}
             className="text-lg text-white font-semibold bg-black px-6 py-3 w-fit hover:bg-black/80"
           >
-            <h3>How it works?</h3>
+            <h3>How to apply?</h3>
           </Link>
         </div>
         {/* Section 2 */}
@@ -165,11 +165,6 @@ function About() {
             deleniti amet quibusdam fuga ipsa dolorum magni impedit sapiente
             voluptates.
           </p>
-          <Link href={APP_ROUTES.OFFERS}>
-            <div className="px-8 py-2 border border-black w-fit my-6 hover:bg-black hover:text-white transition-colors duration-300 ease-in-out">
-              <p className="text-lg font-semibold">Explore Offers</p>
-            </div>
-          </Link>
         </div>
         <div className="basis-1/2">
           <img
@@ -195,11 +190,6 @@ function About() {
             asperiores veniam animi beatae soluta eos modi tenetur? Neque,
             corrupti officiis.
           </p>
-          <Link href={APP_ROUTES.OFFERS}>
-            <div className="px-8 py-2 border border-black w-fit my-6 hover:bg-black hover:text-white transition-colors duration-300 ease-in-out">
-              <p className="text-lg font-semibold">Explore Offers</p>
-            </div>
-          </Link>
         </div>
         <div className="basis-1/2 ">
           <div className="flex gap-6 sm:flex-row flex-col">
@@ -261,7 +251,7 @@ function About() {
 
       {/* Our Team */}
       <div
-        className="flex lg:flex-row flex-col lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 my-24"
+        className="flex xl:flex-row flex-col lg:px-32 md:px-20 sm:px-16 xs:px-12 px-6 my-24"
         id="our-team"
       >
         <div className="basis-1/2">
@@ -280,7 +270,7 @@ function About() {
                 />
                 <div className="absolute bottom-6  bg-white bg-opacity-80 py-1 px-4 rounded-e-full flex items-center gap-2">
                   <div>
-                    <h3 className="text-base font-bold">Mike</h3>
+                    <h3 className="text-base font-bold">Huda Fatima</h3>
                     <p className="text-xs text-gray-600">Frontend Dev.</p>
                   </div>
                   <MdStar className="text-black text-sm" />
@@ -312,7 +302,7 @@ function About() {
                 />
                 <div className="absolute bottom-6  bg-white bg-opacity-80 py-1 px-4 rounded-e-full flex items-center gap-2">
                   <div>
-                    <h3 className="text-base font-bold">Mike</h3>
+                    <h3 className="text-base font-bold">Gloria Wang</h3>
                     <p className="text-xs text-gray-600">Frontend Dev.</p>
                   </div>
                   <MdStar className="text-black text-sm" />
@@ -329,7 +319,81 @@ function About() {
                 />
                 <div className="absolute bottom-6  bg-white bg-opacity-80 py-1 px-4 rounded-e-full flex items-center gap-2">
                   <div>
-                    <h3 className="text-base font-bold">Mike</h3>
+                    <h3 className="text-base font-bold">Ali Mujtaba</h3>
+                    <p className="text-xs text-gray-600">Frontend Dev.</p>
+                  </div>
+                  <MdStar className="text-black text-sm" />
+                </div>
+              </div>
+
+              <div className="bg-orange-100 rounded-lg shadow p-4 flex flex-col justify-center basis-2/3">
+                <h3 className="text-xl font-bold">Rest assured</h3>
+                <p className="text-gray-600 mt-2 text-xs">
+                  There are no crazy fees or legal hassle to worry about.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className=" mt-4 grid sm:grid-cols-[1.15fr,1fr,0.85fr] xs:grid-cols-2 grid-cols-1 gap-4">
+            <div className="flex flex-col gap-4 ">
+              <div className="bg-white rounded-xl min-h-64 overflow-hidden shadow-square shadow-black/20 relative">
+                <img
+                  className="w-full h-full object-cover"
+                  src="/images/p1.jpg"
+                  alt="Muhammad Ahtisham"
+                />
+                <div className="absolute bottom-6  bg-white bg-opacity-80 py-1 px-4 rounded-e-full flex items-center gap-2">
+                  <div>
+                    <h3 className="text-base font-bold">Muhammad Ahtisham</h3>
+                    <p className="text-xs text-gray-600">Frontend Dev.</p>
+                  </div>
+                  <MdStar className="text-black text-sm" />
+                </div>
+              </div>
+              <div className="bg-purple-100 rounded-xl shadow-square shadow-black/20  p-4 flex flex-col justify-center ">
+                <h3 className="text-xl font-bold">Remote Talent Pool</h3>
+                <p className="text-gray-600 mt-2 text-xs">
+                  Pre-vetted remote developers, designers, and product managers
+                  with world-className technical and communication skills.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 ">
+              <div className="bg-green-100 rounded-xl shadow-square shadow-black/20  p-4 flex flex-col justify-center basis-1/2">
+                <h3 className="text-xl font-bold">Quick and adaptable</h3>
+                <p className="text-gray-600 mt-2 text-xs">
+                  Hire within a mere 72 hours. Easily adjust your team size from
+                  month to month as required.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-square shadow-black/20 relative overflow-hidden  xs:basis-1/2 basis-full">
+                <img
+                  className="size-full object-cover"
+                  src="/images/p1.jpg"
+                  alt="Aneeque Mushtaq"
+                />
+                <div className="absolute bottom-6  bg-white bg-opacity-80 py-1 px-4 rounded-e-full flex items-center gap-2">
+                  <div>
+                    <h3 className="text-base font-bold">Aneeque Mushtaq</h3>
+                    <p className="text-xs text-gray-600">Frontend Dev.</p>
+                  </div>
+                  <MdStar className="text-black text-sm" />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex sm:flex-col xs:flex-row flex-col gap-4 sm:col-span-1 xs:col-span-2 ">
+              <div className="bg-white rounded-xl shadow-square shadow-black/20 relative xs:basis-1/3 basis-full overflow-hidden">
+                <img
+                  className="size-full object-cover min-h-44"
+                  src="/images/p1.jpg"
+                  alt="Asger"
+                />
+                <div className="absolute bottom-6  bg-white bg-opacity-80 py-1 px-4 rounded-e-full flex items-center gap-2">
+                  <div>
+                    <h3 className="text-base font-bold">Harry</h3>
                     <p className="text-xs text-gray-600">Frontend Dev.</p>
                   </div>
                   <MdStar className="text-black text-sm" />
